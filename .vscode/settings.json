@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "streambuf": "c",
+        "functional": "c"
+    }
+}
