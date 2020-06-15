@@ -1,0 +1,62 @@
+=============================================================
+	COMPLEX CALCULATOR, MMN_22 v1.2
+=============================================================
+Please enter valid function name and suitable parameters:
+Usage [function_name] [variable],[parameters]
+
+Available variables: A -> E
+Available functions:
+read_comp           [complex variable],[parameter],[parameter]
+print_comp          [complex variable]
+add_comp            [complex variable],[complex variable]
+sub_comp            [complex variable],[complex variable]
+mult_comp_real      [complex variable],[scalar]
+mult_comp_img       [complex variable],[scalar]
+mult_comp_comp      [complex variable],[complex variable]
+abs_comp            [complex variable]
+stop                [none]
+=============================================================
+
+->Read to variable B, two inputs: 45.100, -23.750
+
+-> =============================================================
+*SYSTEM: Print Complex Number : 45.10 + (-23.75)i
+=============================================================
+
+->
+The result of the addition:
+=============================================================
+*SYSTEM: Print Complex Number : 90.20 + (-47.50)i
+=============================================================
+
+->
+The result of the subtraction:
+=============================================================
+*SYSTEM: Print Complex Number : 0.00 + (0.00)i
+=============================================================
+
+->
+The result of the multiplication with real:
+=============================================================
+*SYSTEM: Print Complex Number : 113.20 + (-59.61)i
+=============================================================
+
+->
+The result of the multiplication with img:
+=============================================================
+*SYSTEM: Print Complex Number : -60.89 + (-115.64)i
+=============================================================
+
+->
+The result of the multiplication of two complex numbers:
+=============================================================
+*SYSTEM: Print Complex Number : 1469.95 + (-2142.25)i
+=============================================================
+
+->
+The Absolute value of the variable is: 50.97
+
+->
+=============================================================
+*INFORM: Program halted!
+=============================================================

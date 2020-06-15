@@ -1,0 +1,11 @@
+q1: False.
+In ANSI-C not all functions are global.
+Each function can call only functions that
+above her, unless there's a prototype declaration which allows all functions
+in the same file to call each other.
+
+q2: True.
+
+If the file is not a directory, the size will be print.
+If the file is a directory fsize() will call dirwalk() which then go through all
+the files in the directory recursivly and call fsize() on them. 
