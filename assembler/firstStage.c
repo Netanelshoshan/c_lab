@@ -33,7 +33,7 @@ void firstStage(File_input *file, int numOfLines) {
 }
 
 /* Label parsing function.
- * will install the label based on the kind of the label. */
+ * will install the label based on kind. */
 void commandHandler(File_input *codeLine, char *symbol) {
     if (strncmp(codeLine->line, ".string", sizeof(".string") - 1) == 0) { /* .string handling */
         /* Will occur only if the line starts with "label:" */
