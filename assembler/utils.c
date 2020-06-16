@@ -105,7 +105,7 @@ char *padWithZees(char *s, int padLen) {
     int i, j = 0;
     for (i = 0; i < padLen; i++)
         tmp[i] = '0';
-    i = strlen(s);
+    i = (int)strlen(s);
     while (i > 0) {
         tmp[padLen - 1 - j] = s[strlen(s) - 1 - j];
         i--;

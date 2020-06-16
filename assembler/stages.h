@@ -13,7 +13,6 @@
 
 /*--------- main assembler functions -------------*/
 
-int initAsm(int argc, char **fileList);                             /* file reding */
 void firstStage(File_input *file, int numberOfLines);
 void secondStage(File_input *file, int numOfLines, char *filePath);
 FILE *ob, *ext, *ent;
@@ -27,13 +26,13 @@ void writeEnt();
 void clearTables();
 
 /*-------------------------- first stage functions --------------------------*/
-void dataHandler(File_input *codeLine);
-void stringHandler(File_input *codeLine);
-void entryHandler(File_input *codeLine);
-void externHandler(File_input *codeLine);
+void dataHandler(File_input *fInput);
+void stringHandler(File_input *fInput);
+void entryHandler(File_input *pInput);
+void externHandler(File_input *pInput);
 char expectedOperands(char *name);
-void instructionHandler(File_input *codeLine);
-void commandHandler(File_input *codeLine, char *symbol);
-char *isLabel(File_input *codeLine);
+void instructionHandler(File_input *fInput);
+void commandHandler(File_input *fInput, char *symbol);
+char *isLabel(File_input *fInput);
 
 #endif

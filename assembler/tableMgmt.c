@@ -62,17 +62,17 @@ sysNode *install(char *name, int val, sysNode **table) {
 }
 
 /* Function that install all opcodes when initOpCodes() is invoked. */
-sysNode *installOpcode(char *name, int funct, int opCode, sysNode **ocTable) {
+sysNode *installOpcode(char *name, int funct, int opcVal, sysNode **table) {
     sysNode *ptr;
     unsigned int tmpHash;
-    if ((ptr = lookup(name, ocTable)) == NULL) { /* If the name wasn't found */
+    if ((ptr = lookup(name, table)) == NULL) { /* If the name wasn't found */
 
         /* allocate space for the new entry */
         ptr = (sysNode *) malloc(sizeof(*ptr));
 
         /* empty string or malloc cant allocate requested memory */
         if (ptr == NULL) {
-            fprintf(stderr, "*installOpcode: Memory allocation failed for opc:%d,funct:%d\n", opCode, funct);
+            fprintf(stderr, "*installOpcode: Memory allocation failed for opc:%d,funct:%d\n", opcVal, funct);
             exit(1);
         }
         if ((ptr->name = makeDup(name)) == NULL)
@@ -80,13 +80,13 @@ sysNode *installOpcode(char *name, int funct, int opCode, sysNode **ocTable) {
 
         /* hash the current name and assign it in the tables */
         tmpHash = hash(name);
-        ptr->next = ocTable[tmpHash];
-        ocTable[tmpHash] = ptr;
+        ptr->next = table[tmpHash];
+        table[tmpHash] = ptr;
     }
     else {
         free((void *) ptr->name);
     }
-    ptr->val = opCode;
+    ptr->val = opcVal;
     ptr->funct = funct;
     return ptr;
 }
@@ -196,24 +196,24 @@ void initInstructionLine(Instruction *instLine) {
 /* mask for convert_IL_to_data function. */
 unsigned char mask[] = {0x0, 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F, 0xFF};
 
-/* Converts Instruction object to 24 data line.
- * It creates 24 bit data line and
+/* Converts Instruction object to 24 data instLine.
+ * It creates 24 bit data instLine and
  * insert the Instruction obj into it using a special mask. */
-data convert_IL_to_data(Instruction line) {
+data convert_IL_to_data(Instruction instLine) {
     data d;
-    initDataLine(&d); /*initialize the 24 bit data line. */
+    initDataLine(&d); /*initialize the 24 bit data instLine. */
 
-    d.line |= mask[TYPE_WIDTH] << EXTERNAL_OFFSET & line.E << EXTERNAL_OFFSET;
-    d.line |= mask[TYPE_WIDTH] << RELOCATABLE_OFFSET & line.R << RELOCATABLE_OFFSET;
-    d.line |= mask[TYPE_WIDTH] << ABSOLUTE_OFFSET & line.A << ABSOLUTE_OFFSET;
-    d.line |= mask[FUNCT_WIDTH] << FUNCT_OFFSET & line.funct << FUNCT_OFFSET;
-    d.line |= mask[DREG_WIDTH] << DREG_OFFSET & line.dstReg << DREG_OFFSET;
-    d.line |= mask[DADDR_WIDTH] << DADDR_OFFSET & line.dstAdd << DADDR_OFFSET;
-    d.line |= mask[SREG_WIDTH] << SREG_OFFSET & line.srcReg << SREG_OFFSET;
-    d.line |= mask[SADDR_WIDTH] << SADDR_OFFSET & line.srcAdd << SADDR_OFFSET;
-    d.line |= mask[OPCODE_WIDTH] << OPCODE_OFFSET & line.opCode << OPCODE_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << EXTERNAL_OFFSET & instLine.E << EXTERNAL_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << RELOCATABLE_OFFSET & instLine.R << RELOCATABLE_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << ABSOLUTE_OFFSET & instLine.A << ABSOLUTE_OFFSET;
+    d.line |= mask[FUNCT_WIDTH] << FUNCT_OFFSET & instLine.funct << FUNCT_OFFSET;
+    d.line |= mask[DREG_WIDTH] << DREG_OFFSET & instLine.dstReg << DREG_OFFSET;
+    d.line |= mask[DADDR_WIDTH] << DADDR_OFFSET & instLine.dstAdd << DADDR_OFFSET;
+    d.line |= mask[SREG_WIDTH] << SREG_OFFSET & instLine.srcReg << SREG_OFFSET;
+    d.line |= mask[SADDR_WIDTH] << SADDR_OFFSET & instLine.srcAdd << SADDR_OFFSET;
+    d.line |= mask[OPCODE_WIDTH] << OPCODE_OFFSET & instLine.opCode << OPCODE_OFFSET;
 
-    return d; /* return the converted line */
+    return d; /* return the converted instLine */
 }
 
 

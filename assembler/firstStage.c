@@ -21,8 +21,8 @@ void firstStage(File_input *file, int numOfLines) {
 
     for (i = 0; i < numOfLines; i++) {
         label = isLabel(file + i);              /* label deceleration validation (LOOP,MAIN, etc..)*/
-        spaceTrimmer(&(file[i].line));                  /* space trimmer */
-        if (file[i].line[0] == '.')                     /* handling command deceleration */
+        spaceTrimmer(&(file[i].line.content));                  /* space trimmer */
+        if (file[i].line.content[0] == '.')                     /* handling command deceleration */
             commandHandler(&file[i], label);
         else {
             if (label)                                  /* if it's a label */
@@ -34,159 +34,159 @@ void firstStage(File_input *file, int numOfLines) {
 
 /* Label parsing function.
  * will install the label based on the kind of the label. */
-void commandHandler(File_input *codeLine, char *symbol) {
-    if (strncmp(codeLine->line, ".string", sizeof(".string") - 1) == 0) { /* .string handling */
+void commandHandler(File_input *input, char *symbol) {
+    if (strncmp(input->line.content, ".string", sizeof(".string") - 1) == 0) { /* .string handling */
         /* Will occur only if the line starts with "label:" */
         if (symbol)
-            tmpNode = install(symbol, dc, dataSymTable);
+            tmpNode = install(symbol, dc, dataSymbolsTable);
 
         /*advance the pointer beyond deceleration and parse the string */
-        codeLine->line += (sizeof(".string") - 1);
-        stringHandler(codeLine);
+        input->line.content += (sizeof(".string") - 1);
+        stringHandler(input);
     }
-    else if (strncmp((*codeLine).line, ".data", sizeof(".data") - 1) == 0) { /*.data handling */
+    else if (strncmp(input->line.content, ".data", sizeof(".data") - 1) == 0) { /*.data handling */
         /* Will occur only if the line starts with "label:" */
         if (symbol)
-            tmpNode = install(symbol, dc, dataSymTable);
+            tmpNode = install(symbol, dc, dataSymbolsTable);
 
         /*advance the pointer beyond deceleration and parse the data */
-        codeLine->line += (sizeof(".data") - 1);
-        dataHandler(codeLine);
+        input->line.content += (sizeof(".data") - 1);
+        dataHandler(input);
     }
-    else if (strncmp(codeLine->line, ".entry", sizeof(".entry") - 1) == 0) { /*.entry handling*/
+    else if (strncmp(input->line.content, ".entry", sizeof(".entry") - 1) == 0) { /*.entry handling*/
         /*advance the pointer beyond deceleration and parse the entry */
-        codeLine->line += (sizeof(".entry") - 1);
-        entryHandler(codeLine);
+        input->line.content += (sizeof(".entry") - 1);
+        entryHandler(input);
     }
-    else if (strncmp(codeLine->line, ".extern", sizeof(".extern") - 1) == 0) { /*.extern handling */
+    else if (strncmp(input->line.content, ".extern", sizeof(".extern") - 1) == 0) { /*.extern handling */
         /*advance the pointer beyond deceleration and parse the extern label */
-        codeLine->line += (sizeof(".extern") - 1);
-        externHandler(codeLine);
+        input->line.content += (sizeof(".extern") - 1);
+        externHandler(input);
     }
     else {
         error(RED"*commandHandler:"RST" Unrecognized command %s .\t|in line %d.", symbol,
-              (*codeLine).lineNum); /* error handling */
+              (*input).lineNum); /* error handling */
     }
     /* mark the line as done. no need to parse it again */
-    codeLine->isDone = 1;
+    input->line.isDone = 1;
 }
 
 /* Data parsing function that will parse data values. */
-void dataHandler(File_input *codeLine) {
+void dataHandler(File_input *input) {
     /*var declerations */
     int sign = 1, num = 0;
     char moreFlag = 0;
 
     /* run through the line */
-    while ((*codeLine).line[0] != '\n') {
+    while ((*input).line.content[0] != '\n') {
         num = 0;
-        spaceTrimmer(&((*codeLine).line));      /* trim spaces */
-        if (codeLine->line[0] == '-') {         /* negative value validation, flag will raised if needed */
+        spaceTrimmer(&((*input).line.content));      /* trim spaces */
+        if (input->line.content[0] == '-') {         /* negative value validation, flag will raised if needed */
             sign = -1;
-            (codeLine->line)++;
+            (input->line.content)++;
         }
         /* digit validation */
-        if (!isdigit((*codeLine).line[0]))
-            error(RED"*dataHandler: "RST" Wrong .data format - %s. Numbers expected.\t| in line %d.", (*codeLine).line,
-                  (*codeLine).lineNum);
+        if (!isdigit((*input).line.content[0]))
+            error(RED"*dataHandler: "RST" Wrong .data format - %s. Numbers expected.\t| in line %d.", (*input).line,
+                  (*input).lineNum);
         /*will run until ',' reached and multiply the number by 10 so we could handle it */
         else {
-            while (isdigit(codeLine->line[0])) {
+            while (isdigit(input->line.content[0])) {
                 num *= 10;
-                num += ((*codeLine).line[0] - '0');
-                (codeLine->line)++;
+                num += ((*input).line.content[0] - '0');
+                (input->line.content)++;
             }
             dataArray[dc++] = numberToData(num * sign, X);      /* Add the number to the data array */
         }
-        spaceTrimmer(&((*codeLine).line)); /* trim spaces */
-        if (codeLine->line[0] == ',') { /* validate if we excpecting more */
+        spaceTrimmer(&((*input).line.content)); /* trim spaces */
+        if (input->line.content[0] == ',') { /* validate if we excpecting more */
             moreFlag = 1;
-            (codeLine->line)++;
+            (input->line.content)++;
         }
         else /* if not */
             moreFlag = 0;
     }
     /* another number is expected but there just a ','*/
     if (moreFlag) {
-        error(RED"*dataHandler:"RST" number is expected after \',\'\t|in line %d.", (*codeLine).lineNum);
+        error(RED"*dataHandler:"RST" number is expected after \',\'\t|in line %d.", (*input).lineNum);
     }
 }
 
 /* string parsing function that will parse the string according to the
  * rules and add it to the dataArray.*/
-void stringHandler(File_input *codeLine) {
-    spaceTrimmer(&((*codeLine).line)); /*trim junk spaces*/
+void stringHandler(File_input *input) {
+    spaceTrimmer(&((*input).line.content)); /*trim junk spaces*/
 
-    if (codeLine->line[0] != '\"') { /* comma validation*/
+    if (input->line.content[0] != '\"') { /* comma validation*/
         error(RED"*stringHandler: "RST".string deceleration must start with '\"'\t|in line %d.",
-              (*codeLine).lineNum);
+              (*input).lineNum);
         return;
     }
 
-    (codeLine->line)++; /*advancing the ptr after the first \" and parsing */
+    (input->line.content)++; /*advancing the ptr after the first \" and parsing */
 
-    while (codeLine->line[0] != '\"' && codeLine->line[0] != '\0') {
-        if (codeLine->line[0] == '#')
-            (codeLine->line)++;
-        dataArray[dc++] = charToData(codeLine->line[0]); /* add the char to the data array */
-        (codeLine->line)++;
+    while (input->line.content[0] != '\"' && input->line.content[0] != '\0') {
+        if (input->line.content[0] == '#')
+            (input->line.content)++;
+        dataArray[dc++] = charToData(input->line.content[0]); /* add the char to the data array */
+        (input->line.content)++;
     }
     /*end of string has been reached, register '\0' to the dataArray by the
      * end of the string */
-    if (codeLine->line[0] == '\"') {
+    if (input->line.content[0] == '\"') {
         dataArray[dc++] = charToData('\0');
     }
     else { /* string does not end with \" */
-        error(RED"*stringHandler: "RST".string deceleration must end with \"\t|in line %d.", (*codeLine).lineNum);
+        error(RED"*stringHandler: "RST".string deceleration must end with \"\t|in line %d.", (*input).lineNum);
         return;
     }
 }
 
 /* entry parsing function that will register the entry label into the entryLabelArray.*/
-void entryHandler(File_input *codeLine) {
+void entryHandler(File_input *pInput) {
 
-    codeLine->line = strtok(codeLine->line, " \t\n"); /* isolate the entry label */
+    pInput->line.content = strtok(pInput->line.content, " \t\n"); /* isolate the entry label */
 
-    if (!codeLine->line) { /* empty declaration */
-        error(RED"*entryHandler: "RST"No label provided after .entry command.\t|in line %d", (*codeLine).lineNum);
+    if (!pInput->line.content) { /* empty declaration */
+        error(RED"*entryHandler: "RST"No label provided after .entry command.\t|in line %d", (*pInput).lineNum);
         return;
     }
     /* put out a message for the new entry*/
     printf("*INFORM: " GRN ".entry" RST " decleration" GRN " \"%s\" " RST "has been made in line %d.\n",
-           codeLine->line,
-           (*codeLine).lineNum);
+           pInput->line.content,
+           (*pInput).lineNum);
 
-    entryArray[entryCnt++] = makeDup(codeLine->line);             /* copy the label to entryLabelArray */
-    codeLine->line = strtok(NULL, " \t\n");              /* trim the rest*/
+    entryTable[entryCnt++] = makeDup(pInput->line.content);             /* copy the label to entryLabelArray */
+    pInput->line.content = strtok(NULL, " \t\n");              /* trim the rest*/
 
-    if (codeLine->line) {                                       /*if there's more after the command */
+    if (pInput->line.content) {                                       /*if there's more after the command */
         error(RED"*entryHandler: "RST"Multiple labels provided after .entry command.\t| in line %d.",
-              (*codeLine).lineNum);
+              (*pInput).lineNum);
     }
 }
 
 /* extern parsing function that will parse extern label*/
-void externHandler(File_input *codeLine) {
+void externHandler(File_input *pInput) {
 
-    codeLine->line = strtok(codeLine->line, " \t\n"); /* isolate extern label */
+    pInput->line.content = strtok(pInput->line.content, " \t\n"); /* isolate extern label */
 
-    if (!codeLine->line) {/* empty declaration */
+    if (!pInput->line.content) {/* empty declaration */
         error(RED"*externHandler:"RST" No external label provided after .extern command.\t| in line %d.",
-              (*codeLine).lineNum);
+              (*pInput).lineNum);
         return;
     }
     /* put out a message for the new external*/
     printf("*INFORM: " YEL ".extern" RST " decleration" YEL " \"%s\" "RST"has been made in line %d.\n",
-           codeLine->line,
-           (*codeLine).lineNum);
+           pInput->line.content,
+           (*pInput).lineNum);
 
-    install(codeLine->line, '0', externalTable);    /*install label into externalTable with 0 value */
+    install(pInput->line.content, '0', extTable);    /*install label into extTable with 0 value */
     externCnt++;                                        /* advance the external counter by 1*/
-    codeLine->line = strtok(NULL, " \t\n");     /*trim the rest*/
+    pInput->line.content = strtok(NULL, " \t\n");     /*trim the rest*/
 
-    if (codeLine->line) {                               /*if there's more after the command */
+    if (pInput->line.content) {                               /*if there's more after the command */
         error(RED"*externHandler: "RST"Multiple labels provided after .extern command.\t| in line %d.",
-              (*codeLine).lineNum);
+              (*pInput).lineNum);
     }
 }
 
@@ -212,116 +212,116 @@ char expectedOperands(char *name) {
  * - src/dst addr methods.
  * - finally will increment ic based on flags that were puted in some places in the function.
  */
-void instructionHandler(File_input *codeLine) {
+void instructionHandler(File_input *input) {
     int localCnt = 0, numOfExpOperands, functValue; /*vars declarations*/
 
     /*----------OPCODE VALIDATION----------*/
-    codeLine->line = strtok(codeLine->line, "\t\n ");   /* isolating opcode */
-    tmpNode = lookup(codeLine->line, opcodeTable);          /* opcode validation */
+    input->line.content = strtok(input->line.content, "\t\n ");   /* isolating opcode */
+    tmpNode = lookup(input->line.content, opcodeTable);          /* opcode validation */
     if (!tmpNode) {                                        /* opcode , comment & new line validation */
-        if ((codeLine->line[0] == ';') || (codeLine->line[0] == '\n')) {
-            codeLine->isDone = 1;
+        if ((input->line.content[0] == ';') || (input->line.content[0] == '\n')) {
+            input->line.isDone = 1;
             return;
         }
-        error(RED"*InstructionParsing: "RST"Invalid instruction "YEL"\"%s\""RST".\t| in line %d", codeLine->line,
-              (*codeLine).lineNum);
+        error(RED"*InstructionParsing: "RST"Invalid instruction "YEL"\"%s\""RST".\t| in line %d", input->line.content,
+              (*input).lineNum);
         return;
     }
 
-    numOfExpOperands = expectedOperands(codeLine->line);                            /*grab the number of exp operands*/
-    codeLine->moreParsing = numOfExpOperands;                                       /* Number of expected operands */
-    functValue = functFetcher(codeLine->line, opcodeTable);                         /* grab thg funct value */
-    codeLine->instruction = (Instruction *) malloc(sizeof(Instruction) * 9); /* allocate enough space*/
-    initInstructionLine(codeLine->instruction);      /* Initialize instruction line with 0 values */
-    if (codeLine->instruction == NULL)                                              /* validating for mem allocation.*/
+    numOfExpOperands = expectedOperands(input->line.content);                            /*grab the number of exp operands*/
+    input->line.moreParsing = numOfExpOperands;                                       /* Number of expected operands */
+    functValue = functFetcher(input->line.content, opcodeTable);                         /* grab thg funct value */
+    input->instruction = (Instruction *) malloc(sizeof(Instruction) * 9); /* allocate enough space*/
+    initInstructionLine(input->instruction);      /* Initialize instruction line with 0 values */
+    if (input->instruction == NULL)                                              /* validating for mem allocation.*/
     {
-        error(RED"*SYSTEM: "RST"Memory allocation Failed.\t| in line %d", (*codeLine).lineNum);
+        error(RED"*SYSTEM: "RST"Memory allocation Failed.\t| in line %d", (*input).lineNum);
         exit(1);
     }
     localCnt++;                                   /* advance the local counter for ic */
-    codeLine->instruction->opCode = tmpNode->val; /* assign the opcode val to Instruction*/
-    codeLine->instruction->funct = functValue;    /* same with funct */
-    codeLine->instruction->A = 1;                 /*initialize A bit with 1.*/
+    input->instruction->opCode = tmpNode->val; /* assign the opcode val to Instruction*/
+    input->instruction->funct = functValue;    /* same with funct */
+    input->instruction->A = 1;                 /*initialize A bit with 1.*/
 
     /* determine if a line needs more than one parsing*/
     if (numOfExpOperands == 0)
-        codeLine->moreParsing = 1;
+        input->line.moreParsing = 1;
     if (numOfExpOperands > 1)
-        codeLine->moreParsing = numOfExpOperands - 1;
+        input->line.moreParsing = numOfExpOperands - 1;
 
 
     /* advance the pointer pass the command and trim space junk in order to get to the values*/
-    while (codeLine->line[0] != '\0')
-        (codeLine->line)++;
-    (codeLine->line)++;
-    spaceTrimmer(&(codeLine->line));
-    codeLine->line = strtok(codeLine->line, " \t,\n");
+    while (input->line.content[0] != '\0')
+        (input->line.content)++;
+    (input->line.content)++;
+    spaceTrimmer(&(input->line.content));
+    input->line.content = strtok(input->line.content, " \t,\n");
 
     /*Addressing method parsing */
     while (numOfExpOperands-- > 0) {
         /* in each iteration decide which is the src/dst and copy it to the src/dstOpr variable */
         if (numOfExpOperands == 1)
-            codeLine->srcOpr = makeDup(codeLine->line);
+            input->srcOpr = makeDup(input->line.content);
         else
-            codeLine->dstOpr = makeDup(codeLine->line);
+            input->dstOpr = makeDup(input->line.content);
 
-        switch (codeLine->line[0]) {
+        switch (input->line.content[0]) {
             case '#': /*Immediate addressing */
                 localCnt++;
                 if (numOfExpOperands == 1)
-                    codeLine->instruction->srcAdd = 0;
+                    input->instruction->srcAdd = 0;
                 else
-                    codeLine->instruction->dstAdd = 0;
+                    input->instruction->dstAdd = 0;
                 break;
             case 'r': /* Direct reg addressing  */
-                (codeLine->line)++;
+                (input->line.content)++;
                 /*src/dstReg value will be determined based on the register values without the 'r' char
                      * in that case, srcOpr will be freed because there is no need to parse it again.
                      * SAME GOES FOR DESTINATION HANDLING */
-                if ((codeLine->line[0] >= '0') && ((codeLine->line[0] <= '7'))) {
+                if ((input->line.content[0] >= '0') && ((input->line.content[0] <= '7'))) {
                     if (numOfExpOperands == 1) {
-                        codeLine->instruction->srcReg = codeLine->line[0] - '0';
-                        (codeLine->srcOpr) = NULL;
-                        codeLine->instruction->srcAdd = 3;
+                        input->instruction->srcReg = input->line.content[0] - '0';
+                        (input->srcOpr) = NULL;
+                        input->instruction->srcAdd = 3;
                     }
                     else { /*HERE*/
-                        codeLine->instruction->dstReg = codeLine->line[0] - '0';
-                        (codeLine->dstOpr) = NULL;
-                        codeLine->instruction->dstAdd = 3;
+                        input->instruction->dstReg = input->line.content[0] - '0';
+                        (input->dstOpr) = NULL;
+                        input->instruction->dstAdd = 3;
                     }
                     break;
                 }
             case '&': /* Relative addressing */
                 localCnt++;
-                codeLine->instruction->dstAdd = 2;
+                input->instruction->dstAdd = 2;
                 break;
             default: /* Direct addressing */
                 localCnt++;
                 if (numOfExpOperands == 1)
-                    codeLine->instruction->srcAdd = 1;
+                    input->instruction->srcAdd = 1;
                 else
-                    codeLine->instruction->dstAdd = 1;
+                    input->instruction->dstAdd = 1;
         }
-        codeLine->line = strtok(NULL, " \t\n"); /*clean the rest*/
+        input->line.content = strtok(NULL, " \t\n"); /*clean the rest*/
     }
     /* increment the ic based on localCnt * moreParsing value */
-    ic += (localCnt * codeLine->moreParsing);
+    ic += (localCnt * input->line.moreParsing);
 }
 
 /* isLabel will check if the line starts with a label, like "FSD:"*/
-char *isLabel(File_input *codeLine) {
-    char *tmpStr = (codeLine->line); /* grab a copy of it*/
+char *isLabel(File_input *input) {
+    char *tmpStr = (input->line.content); /* grab a copy of it*/
     /* run through the line */
-    while (*(codeLine->line) != '\0') {
-        if (*(codeLine->line) == ':') { /* if it a label decleration */
-            *((codeLine->line)++) = '\0'; /*put a null char in front of it and send the TMPSTR */
+    while (*(input->line.content) != '\0') {
+        if (*(input->line.content) == ':') { /* if it a label decleration */
+            *((input->line.content)++) = '\0'; /*put a null char in front of it and send the TMPSTR */
             if (!isalpha(tmpStr[0])) { /* label deceleration validation*/
-                error(RED"*isLabel: "RST"label must start with character.\t| in line %d.", (*codeLine).lineNum);
+                error(RED"*isLabel: "RST"label must start with character.\t| in line %d.", (*input).lineNum);
             }
             return tmpStr;
         }
-        (codeLine->line)++;
+        (input->line.content)++;
     }
-    codeLine->line = tmpStr; /*if none was found , assign back the copy that was created */
+    input->line.content = tmpStr; /*if none was found , assign back the copy that was created */
     return NULL;
 }

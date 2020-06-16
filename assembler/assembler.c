@@ -69,13 +69,13 @@ int main(int argc, char **argv) {
 
         /* memory allocation for file reading */
         file = malloc(sizeof(File_input) * BUF_SIZE);
-        file[cnt].line = malloc(sizeof(char) * LINE_LENGTH);
+        file[cnt].line.content = malloc(sizeof(char) * LINE_LENGTH);
 
         /* read the file */
-        while (fgets(file[cnt].line, LINE_LENGTH, fp)) {
+        while (fgets(file[cnt].line.content, LINE_LENGTH, fp)) {
 
             /* new lines and comment indicators */
-            if (isNewLine(&(file[cnt]).line) || isComment(&(file[cnt]).line))
+            if (isNewLine(&(file[cnt]).line.content) || isComment(&(file[cnt]).line.content))
                 continue;
 
             /* if there's a need for memory reallocation */
@@ -93,9 +93,9 @@ int main(int argc, char **argv) {
             file[cnt].lineNum = cnt + 1;
 
             /* for each line, allocate enough memory as project required */
-            file[++cnt].line = malloc(sizeof(char) * LINE_LENGTH);
+            file[++cnt].line.content = malloc(sizeof(char) * LINE_LENGTH);
         }
-        free(file[cnt].line);                       /* free the last '\n' */
+        free(file[cnt].line.content);                       /* free the last '\n' */
         status(tmpF, 0, 1);             /*put out starting status for the file*/
         firstStage(file, cnt);                      /* initialize first stage */
         secondStage(file, cnt, argv[i]);            /* initialize first stage */

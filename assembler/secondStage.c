@@ -82,26 +82,26 @@ void secondStage(File_input *file, int numOfLines, char *filePath) {
 
 /**
  * Writing entry objects from entLabelArary into .ent output file.
- * Will search for the label in both dataSymTable and instTable.
+ * Will search for the label in both dataSymbolsTable and instTable.
  */
 void writeEnt() {
-    for (i = 0; entryArray[i]; i++) {
+    for (i = 0; entryTable[i]; i++) {
 
-        /* If label was found in the dataSymTable*/
-        if ((tmpNode = lookup(entryArray[i], dataSymTable))) {
-            col1 = entryArray[i];
+        /* If label was found in the dataSymbolsTable*/
+        if ((tmpNode = lookup(entryTable[i], dataSymbolsTable))) {
+            col1 = entryTable[i];
             col2 = baseConvertor(tmpNode->val + IC_OFFSET + 1 + ic, DEC_BASE, outArr1, PAD7);
             fprintf(ent, "%s\t%s\n", col1, col2);
         }
             /*The label is in the instTable */
-        else if ((tmpNode = lookup(entryArray[i], instTable))) {
-            col1 = entryArray[i];
+        else if ((tmpNode = lookup(entryTable[i], instTable))) {
+            col1 = entryTable[i];
             col2 = baseConvertor(tmpNode->val + IC_OFFSET + 1, DEC_BASE, outArr1, PAD7);
             fprintf(ent, "%s\t%s\n", col1, col2);
         }
-            /* entry wasn't found on both instTable and dataSymTable */
+            /* entry wasn't found on both instTable and dataSymbolsTable */
         else {
-            error(RED"*writeEnt: "RST"can't find address for entry %s", entryArray[i]);
+            error(RED"*writeEnt: "RST"can't find address for entry %s", entryTable[i]);
             errorFlag = 1;
         }
     }
@@ -112,9 +112,9 @@ void writeEnt() {
  */
 void clearTables() {
     for (i = 0; i < HASHSIZE; i++) {
-        dataSymTable[i] = NULL;
+        dataSymbolsTable[i] = NULL;
         instTable[i] = NULL;
-        externalTable[i] = NULL;
+        extTable[i] = NULL;
     }
 }
 
@@ -137,13 +137,13 @@ void writeOb(File_input *file, int numOfLines) {
 
     for (i = 0; i < numOfLines; i++) {
         /* If the line needs more parsing.*/
-        if (!file[i].isDone) {
+        if (!file[i].line.isDone) {
 
             /*validate addressing methods for the instruction opcode */
             addressChecking(file[i].instruction, file[i].lineNum);
 
             /* parse the line based on the number of repeated operand (DOC WAS GIVEN IN instructionHandler) */
-            for (j = 0; j < file[i].moreParsing; j++) {
+            for (j = 0; j < file[i].line.moreParsing; j++) {
 
                 /* write whole line the the ob file */
                 col1 = baseConvertor(lineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
@@ -216,7 +216,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         case 1:
             /*Immidiate addressing.
                 search for the operand in the line,inst,external tables and write output to the files based on the rules.*/
-            if ((tmpNode = lookup(strPtr, dataSymTable))) {
+            if ((tmpNode = lookup(strPtr, dataSymbolsTable))) {
                 col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
                 col2 = baseConvertor((int) numberToData(tmpNode->val + ic + IC_OFFSET + 1, RELOCATABLE).line,
                                      HEX_BASE,
@@ -234,7 +234,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
                 fprintf(ob, "%s\t%s\t\n", col1, col2);
                 (*icLineCnt)++;
             }
-            else if ((tmpNode = lookup(strPtr, externalTable))) {
+            else if ((tmpNode = lookup(strPtr, extTable))) {
 
                 col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
                 col2 = baseConvertor((int) numberToData(0, EXTERNAL).line, HEX_BASE, outArr2,
@@ -270,7 +270,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
                 fprintf(ob, "%s\t%s\t\n", col1, col2);
                 (*icLineCnt)++;
             }
-            else if ((tmpNode = lookup(strPtr, dataSymTable))) {
+            else if ((tmpNode = lookup(strPtr, dataSymbolsTable))) {
                 col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
                 col2 = baseConvertor((int) numberToData(tmpNode->val + ic + IC_OFFSET + 1, ABSOLUTE).line,
                                      HEX_BASE,

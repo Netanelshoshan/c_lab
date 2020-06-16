@@ -30,13 +30,15 @@ typedef struct instructionLine {
 
 /* Code line structure for file parsing */
 typedef struct file_input {
-    char *line; /* file line */
-    Instruction *instruction; /* each line in the file hold a ptr to "instructionLine" object */
+    struct {
+        char *content; /* line content */
+        int moreParsing; /* if the line need's more than one parsing (used in 2nd stage) - (for labels) */
+        int isDone;  /* marking line as done only if the line doesn't require more the one parsing. - (for whole line) */
+    } line;
+    Instruction *instruction; /* each line hold a ptr to "instructionLine" object */
     int lineNum; /* line number for error handling and more */
-    int moreParsing; /* if the line need's more than one parsing (used in 2nd stage) - (for labels) */
     char *srcOpr; /* if src op is a label, it will hold it, otherwise it's a reg and "instructionLine" will hold it */
     char *dstOpr; /* ^same goes here^ */
-    char isDone; /* marking line as done only if the line doesn't require more the one parsing. - (for whole line) */
 } File_input;
 
 /* structure that can hold opcodes and being used for other purposes like labels and symbols*/
@@ -49,21 +51,21 @@ typedef struct sysNode {
 
 
 sysNode *opcodeTable[HASHSIZE];     /* opcode Array*/
-sysNode *dataSymTable[HASHSIZE];    /* line symbols (K,STR,etc..) */
+sysNode *dataSymbolsTable[HASHSIZE];/* array for 24 bit line data symbols (STR,etc..) */
 sysNode *instTable[HASHSIZE];       /* labels array (LOOP,MAIN,etc..) that instruction comes after them*/
-sysNode *externalTable[HASHSIZE];   /* external labels array */
+sysNode *extTable[HASHSIZE];        /* external labels array */
 sysNode *tmpNode;                   /* tmp node for changes on the fly.*/
 data dataArray[ARR_SIZE];           /* 24 bit dataArray */
-char *entryArray[ARR_SIZE];         /* entry labels array */
+char *entryTable[ARR_SIZE];         /* entry labels array */
 
 /* ------------------- table management function prototypes ---------------------*/
 
-sysNode *lookup(char *string, sysNode **HashTable); /* install's helper. will return null of the string wasn't found */
-sysNode *install(char *name, int val, sysNode **HashTable); /* for installations purposes */
-sysNode *installOpcode(char *name, int funct, int opCode, sysNode **HashTable);/* responsible for opcode init */
+sysNode *lookup(char *string, sysNode **table); /* install's helper. will return null of the string wasn't found */
+sysNode *install(char *name, int val, sysNode **table); /* for installations purposes */
+sysNode *installOpcode(char *name, int funct, int opcVal, sysNode **table);/* responsible for opcode init */
 data charToData(char ch);                           /* character to 24 bit line converter */
 data numberToData(int num, int are);                /* converting a singed int to 24 bit line */
-data convert_IL_to_data(Instruction line);          /* instruction to 24 bit line converter */
+data convert_IL_to_data(Instruction instLine);          /* instruction to 24 bit instLine converter */
 unsigned int hash(char *s);                         /* hashing function */
 int functFetcher(char *string, sysNode **table);    /* funct fetcher */
 void initOpCodes();                                 /* opcode table initializer */
