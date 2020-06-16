@@ -36,6 +36,7 @@ void firstStage(File_input *file, int numOfLines) {
  * will install the label based on the kind of the label. */
 void commandHandler(File_input *input, char *symbol) {
     if (strncmp(input->line.content, ".string", sizeof(".string") - 1) == 0) { /* .string handling */
+
         /* Will occur only if the line starts with "label:" */
         if (symbol)
             tmpNode = install(symbol, dc, dataSymbolsTable);
