@@ -49,7 +49,8 @@ void commandHandler(File_input *input, char *symbol)
 
         /*advance the pointer beyond deceleration and parse the string */
         input->line.content += (sizeof(".string") - 1);
-        if(!isValid(input, symbol)) return;
+        if (!isValid(input, symbol))
+            return;
         stringHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
@@ -63,7 +64,8 @@ void commandHandler(File_input *input, char *symbol)
 
         /*advance the pointer beyond deceleration and parse the data */
         input->line.content += (sizeof(".data") - 1);
-        if(!isValid(input, symbol)) return;
+        if (!isValid(input, symbol))
+            return; /*command validation*/
         dataHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
@@ -72,7 +74,8 @@ void commandHandler(File_input *input, char *symbol)
     { /*.entry handling*/
         /*advance the pointer beyond deceleration and parse the entry */
         input->line.content += (sizeof(".entry") - 1);
-        if(!isValid(input, symbol)) return;
+        if (!isValid(input, symbol))
+            return; /*command validation*/
         entryHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
@@ -82,7 +85,8 @@ void commandHandler(File_input *input, char *symbol)
         /*.extern handling */
         /*advance the pointer beyond deceleration and parse the extern label */
         input->line.content += (sizeof(".extern") - 1);
-        if(!isValid(input, symbol)) return;
+        if (!isValid(input, symbol))
+            return; /*command validation*/
         externHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
@@ -92,10 +96,19 @@ void commandHandler(File_input *input, char *symbol)
 /* function for command validation */
 int isValid(File_input *input, char *sym)
 {
+
     if (!isspace(*(input->line).content))
     {
         input->line.content -= (sizeof(".extern") - 1);
-        sym = strtok(input->line.content, "\n");
+        sym = input->line.content;
+        if( (sym = strchr(sym, '\n')) == NULL)
+        {
+            sym = strtok(input->line.content, "\n");
+            input->line.isDone = 1;
+            error(RED "*commandHandler:" RST " Unrecognized command-" YEL "\"%s\"" RST ".| in line %d.", sym,
+                  (*input).lineNum); /* error handling */
+            return 0;
+        }
         input->line.isDone = 1;
         error(RED "*commandHandler:" RST " Unrecognized command-" YEL "\"%s\"" RST ".| in line %d.", sym,
               (*input).lineNum); /* error handling */

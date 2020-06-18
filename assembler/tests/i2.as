@@ -5,7 +5,7 @@ lea w, r4
 LOOP:    jmp  &END
 
 ;here I cant even reach "nsh" because of knowing the numofops.
-;so the prog won't advance the pointer, therefor - No errorno.
+;so the prog won't advance the pointer, therefor -NoProblemo.
 
 prn w  
 
@@ -18,19 +18,24 @@ subliminal #1, r1
 .extern w
 inc   r0
 
-;unrecogized command
-invalidInst r0
+;unrecogized instruction
+sysProgLab r0
 
 LENGTH:  .data  6
 mov  r3,STR
 
-;unrecogized command
+;unrecogized instruction
 blabla
+
 bne LOOP
 
-;unrecogized command
+;unrecogized instruction
 paamAharona
 
 END:    stop
+
+;unrecogized command
+.entrylio LENGTH
+
 .entry LENGTH
-K:    .data  2
+K:    .data  2,2,222,2
