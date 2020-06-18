@@ -1,10 +1,7 @@
 /**
- * -----------------------------------------------------------------------------------------
- * @file        : Assembler/assembler.c
- * @author      : Netanel Shoshan
- * @details     : file containing the main function for the program (initAsm)
- * and result printing function
- * -----------------------------------------------------------------------------------------
+ * @Netanel Shoshan@
+ * 
+ * Contains the main func for the assembler program.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,25 +12,28 @@
 #include "stages.h"
 
 /*
- * This function gets the num of arguments and the list of files from the command line.
- * The fucntion will initialize, count and allocate enough space for each line in file given.
+ * The function gets the num of arguments and the list of files from the command line.
+ * The fucntion will initialize, count and allocate enough space for each line in the given file.
  * then, the function will invoke first and second stage functions.
  */
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     /* var deceleration */
     int i;
     FILE *fp;
     char fileName[MAX_FILENAME], *tmpF;
 
     /* print welcome + help massages */
-    if (argc == 1) {
+    if (argc == 1)
+    {
         printf(GRN "\n%s\n" RST, LINE);
         printf("\t  %s | %s\n", PROG_NAME, VERSION);
         printf("%s\n", HELP);
         printf(GRN "%s\n\n" RST, LINE);
     }
 
-    if (argc > 1) {
+    if (argc > 1)
+    {
         /* print welcome message */
         printf(GRN "\n%s\n" RST, LINE);
         printf("\t  %s | %s\n", PROG_NAME, VERSION);
@@ -42,13 +42,15 @@ int main(int argc, char **argv) {
 
     initOpCodes(); /* opcodes initializer */
 
-    for (i = 1; i < argc; i++) {
+    for (i = 1; i < argc; i++)
+    {
         int cnt = 0, bufCnt = BUF_SIZE; /*line and buffer counters*/
-        File_input *file, *tmp;                 /* File_input pointers */
+        File_input *file, *tmp;         /* File_input pointers */
         tmpF = argv[i];
 
         /* max file length validation */
-        if (strlen(argv[i]) > MAX_FILENAME) {
+        if (strlen(argv[i]) > MAX_FILENAME)
+        {
             printf(YEL "\n%s====\n" RST, LINE);
             error(YEL "*ERROR: " RST "File name can be up to 20 characters.");
             printf(YEL "%s====\n" RST, LINE);
@@ -60,7 +62,8 @@ int main(int argc, char **argv) {
         fp = fopen(fileName, "r");
 
         /* file wasn't found or was given with the .as extention*/
-        if (fp == NULL) {
+        if (fp == NULL)
+        {
             printf(YEL "\n%s----\n" RST, LINE);
             error(YEL "*ERROR: " RST "Please provide \"%s\" without the " RED ".as " RST "extension.\n", tmpF);
             printf(YEL "%s----\n" RST, LINE);
@@ -72,19 +75,22 @@ int main(int argc, char **argv) {
         file[cnt].line.content = malloc(sizeof(char) * LINE_LENGTH);
 
         /* read the file */
-        while (fgets(file[cnt].line.content, LINE_LENGTH, fp)) {
+        while (fgets(file[cnt].line.content, LINE_LENGTH, fp))
+        {
 
             /* new lines and comment indicators */
             if (isNewLine(&(file[cnt]).line.content) || isComment(&(file[cnt]).line.content))
                 continue;
 
             /* if there's a need for memory reallocation */
-            if (cnt == bufCnt) {
+            if (cnt == bufCnt)
+            {
                 bufCnt += BUF_SIZE;
                 tmp = realloc(file, sizeof(File_input) * bufCnt);
                 if (tmp)
                     file = tmp;
-                else { /* cant allocate more space */
+                else
+                { /* cant allocate more space */
                     error(RED "*SYSTEM: buf is full and mem realloc - FAILED." RST);
                     exit(2);
                 }
@@ -95,14 +101,13 @@ int main(int argc, char **argv) {
             /* for each line, allocate enough memory as project required */
             file[++cnt].line.content = malloc(sizeof(char) * LINE_LENGTH);
         }
-        free(file[cnt].line.content);                       /* free the last '\n' */
-        status(tmpF, 0, 1);             /*put out starting status for the file*/
-        firstStage(file, cnt);                      /* initialize first stage */
-        secondStage(file, cnt, argv[i]);            /* initialize first stage */
-        free(file);                                 /* free File_input object for next iteration */
-        fclose(fp);                                 /* close the current file */
-        status(fileName, errorFlag, 0);     /* put out a status message for given file */
+        free(file[cnt].line.content);    /* free the last '\n' */
+        status(tmpF, 0, 1);              /*put out starting status for the file*/
+        firstStage(file, cnt);           /* initialize first stage */
+        secondStage(file, cnt, argv[i]); /* initialize first stage */
+        free(file);                      /* free File_input object for next iteration */
+        fclose(fp);                      /* close the current file */
+        status(fileName, errorFlag, 0);  /* put out a status message for given file */
     }
     return 0;
 }
-

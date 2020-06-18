@@ -10,7 +10,6 @@
 #include "stages.h"
 #include "structs.h"
 
-
 /*--------- main assembler functions -------------*/
 
 void firstStage(File_input *file, int numberOfLines);
@@ -26,6 +25,7 @@ void writeEnt();
 void clearTables();
 
 /*-------------------------- first stage functions --------------------------*/
+
 void dataHandler(File_input *fInput);
 void stringHandler(File_input *fInput);
 void entryHandler(File_input *pInput);
@@ -33,6 +33,7 @@ void externHandler(File_input *pInput);
 char expectedOperands(char *name);
 void instructionHandler(File_input *fInput);
 void commandHandler(File_input *fInput, char *symbol);
+int isValid(File_input *file,char *sym);
 char *isLabel(File_input *fInput);
 
 #endif

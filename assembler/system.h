@@ -1,5 +1,6 @@
 /*
  * @ Netanel Shoshan @
+ * 
  * Global vars and structure macros for system use.
  */
 
@@ -12,6 +13,7 @@
 int entryCnt, externCnt;
 int i, ic, dc;
 int errorFlag;
+
 
 /* Color indicators */
 #define RED "\x1B[31m"
@@ -69,12 +71,12 @@ int errorFlag;
 #define EXTERNAL_OFFSET 0
 
 /* for A,R,E handling*/
-enum {
+enum
+{
     EXTERNAL,
     RELOCATABLE,
     ABSOLUTE,
     X
 };
-
 
 #endif

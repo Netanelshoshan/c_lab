@@ -1,9 +1,7 @@
 /**
- * -----------------------------------------------------------------------------------------
- * @file        : Assembler/secondStage.c
- * @author      : Netanel Shoshan
- * @details     : secondStage and other parsing functions.
- * -----------------------------------------------------------------------------------------
+ * @Netanel Shoshan@
+ * 
+ * secondStage and other parsing functions.
  */
 
 #include <stdio.h>
@@ -20,17 +18,14 @@ static char outArr1[OUTPUT_ARR_LENGTH + 1], outArr2[OUTPUT_ARR_LENGTH + 1], *col
 static int lineCnt;
 
 /**
- * This function is responsible for:
- * - parse unfinished lines.
- * - writing output files  (and deleting them if errorFlag=1)
- * @param file  {CLO ptr}
- * @param numOfLines {int}
- * @param filePath {CH ptr}
- * @return 0
+ * This function will handle:
+ * Lines that need more parsing.
+ * Writing output files.
  */
-void secondStage(File_input *file, int numOfLines, char *filePath) {
+void secondStage(File_input *file, int numOfLines, char *filePath)
+{
     char fileName[MAX_FILENAME];
-    lineCnt = 0;
+    lineCnt = 0; /* counter for the output lines */
 
     /* Create the files with the the proper extension, and in the org path. */
     sprintf(fileName, "%s.ob", filePath);
@@ -40,9 +35,9 @@ void secondStage(File_input *file, int numOfLines, char *filePath) {
     sprintf(fileName, "%s.ext", filePath);
     ext = fopen(fileName, "w+");
 
-    writeOb(file, numOfLines);      /* write .ob output file */
-    writeEnt();                     /* write .ent output file */
-    clearTables();                  /*clear the tables for further use */
+    writeOb(file, numOfLines); /* write .ob output file */
+    writeEnt();                /* write .ent output file */
+    clearTables();             /*clear the tables for further use */
 
     /*Close files */
     fclose(ob);
@@ -55,63 +50,69 @@ void secondStage(File_input *file, int numOfLines, char *filePath) {
     * if externCnt or entryCnt equals 0 - means no label declaration been made
     * so will delete based on counter value.
     */
-    switch (errorFlag) {
-        case 1:
-            sprintf(fileName, "%s.ob", filePath);
-            remove(fileName);
+    switch (errorFlag)
+    {
+    case 1:
+        sprintf(fileName, "%s.ob", filePath);
+        remove(fileName);
+        sprintf(fileName, "%s.ext", filePath);
+        remove(fileName);
+        sprintf(fileName, "%s.ent", filePath);
+        remove(fileName);
+        break;
+    case 0:
+        if (externCnt == 0)
+        {
             sprintf(fileName, "%s.ext", filePath);
             remove(fileName);
+            break;
+        }
+        else if (entryCnt == 0)
+        {
             sprintf(fileName, "%s.ent", filePath);
             remove(fileName);
             break;
-        case 0:
-            if (externCnt == 0) {
-                sprintf(fileName, "%s.ext", filePath);
-                remove(fileName);
-                break;
-            }
-            else if (entryCnt == 0) {
-                sprintf(fileName, "%s.ent", filePath);
-                remove(fileName);
-                break;
-            }
-            break;
+        }
+        break;
     }
 }
-
 
 /**
  * Writing entry objects from entLabelArary into .ent output file.
  * Will search for the label in both dataSymbolsTable and instTable.
  */
-void writeEnt() {
-    for (i = 0; entryTable[i]; i++) {
-
+void writeEnt()
+{
+    for (i = 0; entryTable[i]; i++)
+    {
         /* If label was found in the dataSymbolsTable*/
-        if ((tmpNode = lookup(entryTable[i], dataSymbolsTable))) {
+        if ((tmpNode = lookup(entryTable[i], dataSymbolsTable)))
+        {
             col1 = entryTable[i];
             col2 = baseConvertor(tmpNode->val + IC_OFFSET + 1 + ic, DEC_BASE, outArr1, PAD7);
             fprintf(ent, "%s\t%s\n", col1, col2);
         }
-            /*The label is in the instTable */
-        else if ((tmpNode = lookup(entryTable[i], instTable))) {
+        /*The label is in the instTable */
+        else if ((tmpNode = lookup(entryTable[i], instTable)))
+        {
             col1 = entryTable[i];
             col2 = baseConvertor(tmpNode->val + IC_OFFSET + 1, DEC_BASE, outArr1, PAD7);
             fprintf(ent, "%s\t%s\n", col1, col2);
         }
-            /* entry wasn't found on both instTable and dataSymbolsTable */
-        else {
-            error(RED"*writeEnt: "RST"can't find address for entry %s", entryTable[i]);
-            errorFlag = 1;
-        }
+        /* entry wasn't found on both instTable and dataSymbolsTable */
+        else
+            error(RED "*writeEnt: " RST "can't find address for entry" YEL " \"%s\"." RST, entryTable[i]);
+        break;
     }
 }
 
 /**
  * table cleaning function for further use.
  */
-void clearTables() {
-    for (i = 0; i < HASHSIZE; i++) {
+void clearTables()
+{
+    for (i = 0; i < HASHSIZE; i++)
+    {
         dataSymbolsTable[i] = NULL;
         instTable[i] = NULL;
         extTable[i] = NULL;
@@ -120,13 +121,13 @@ void clearTables() {
 
 /**
  * Function to write .ob output file.
- * the file will run through the file after first stage.
- * In each iteration, based on isDone flag (that indicates that a line need parsing)
- * the function will call another assisting function called morePNedded (which also write to files).
- * @param file {ptr}
- * @param numOfLines number of lines in the input file.
+ * when invoked, the function will run through the file.
+ * In each iteration, based on isDone flag the fucntion will 
+ * create a second loop and parse the src/dst oprand that needs more parsing.
+ * (by calling morePNeeded)
  */
-void writeOb(File_input *file, int numOfLines) {
+void writeOb(File_input *file, int numOfLines)
+{
     int j;
 
     /*object file header*/
@@ -135,43 +136,44 @@ void writeOb(File_input *file, int numOfLines) {
     fprintf(ob, "     %s %s\n", col1, col2);
     lineCnt++;
 
-    for (i = 0; i < numOfLines; i++) {
+    for (i = 0; i < numOfLines; i++)
+    {
         /* If the line needs more parsing.*/
-        if (!file[i].line.isDone) {
+        if (!file[i].line.isDone)
+        {
 
             /*validate addressing methods for the instruction opcode */
             addressChecking(file[i].instruction, file[i].lineNum);
 
             /* parse the line based on the number of repeated operand (DOC WAS GIVEN IN instructionHandler) */
-            for (j = 0; j < file[i].line.moreParsing; j++) {
+            for (j = 0; j < file[i].line.moreParsing; j++)
+            {
 
                 /* write whole line the the ob file */
                 col1 = baseConvertor(lineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) convert_IL_to_data(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
+                col2 = baseConvertor((int)convert_IL_to_data(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
                 fprintf(ob, "%s\t%s\t\n", col1, col2);
                 lineCnt++;
 
                 /* If the source operand needs more parsing */
-                if (file[i].srcOpr) {
-                    morePNedded(file[i].srcOpr, (char) file[i].instruction->srcAdd, ob, ext, &lineCnt,
+                if (file[i].srcOpr)
+                    morePNedded(file[i].srcOpr, (char)file[i].instruction->srcAdd, ob, ext, &lineCnt,
                                 file[i].lineNum);
-                }
 
                 /* If the destination operand need more parsing */
-                if (file[i].dstOpr) {
-                    morePNedded(file[i].dstOpr, (char) file[i].instruction->dstAdd, ob, ext, &lineCnt,
+                if (file[i].dstOpr)
+                    morePNedded(file[i].dstOpr, (char)file[i].instruction->dstAdd, ob, ext, &lineCnt,
                                 file[i].lineNum);
-                }
             }
         }
     }
 
-
     /**  writing line objects from dataArary into the ob file.
      *  line will be written to specific lines and not random ones. */
-    for (i = 0; i < dc; i++) {
+    for (i = 0; i < dc; i++)
+    {
         col1 = baseConvertor(lineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-        col2 = baseConvertor((int) dataArray[i].line, HEX_BASE, outArr2, PAD6);
+        col2 = baseConvertor((int)dataArray[i].line, HEX_BASE, outArr2, PAD6);
         fprintf(ob, "%s\t%s\n", col1, col2);
         lineCnt++;
     }
@@ -180,186 +182,198 @@ void writeOb(File_input *file, int numOfLines) {
 /**
  * Assisting function for secondStage.
  * will parse operands that needs more parsing.
- * @param strPtr - the operand
- * @param address - addressing method
- * @param ob {file ptr}
- * @param ext {file ptr}
- * @param ent {file ptr}
- * @param icLineCnt {int ptr}
- * @param lineNum {int}
  */
-void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt, int lineNum) {
+void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt, int lineNum)
+{
     /*vars decelerations*/
     int sign = 1, sum = 0;
 
-    /* Addressing method */
-    switch (address) {
-        case 0:
-            /*Instant addressing.
-                 * handles both positive and negative numbers, covert it to 24 bit line line using the numberToData func.*/
+    /* addressing method validation */
+    switch (address)
+    {
+    case 0:
+        /*Instant addressing.
+        * Handles both positive and negative numbers.
+        * Covert it to 24 bit line line using the numberToData func and write the data.*/
+        strPtr++;
+        if (strPtr[0] == '-')
+        {
+            sign = -1;
             strPtr++;
-            if (strPtr[0] == '-') {
-                sign = -1;
-                strPtr++;
-            }
-            while (isdigit(strPtr[0])) {
-                sum *= 10;
-                sum += strPtr[0] - '0';
-                strPtr++;
-            }
+        }
+        while (isdigit(strPtr[0]))
+        {
+            sum *= 10;
+            sum += strPtr[0] - '0';
+            strPtr++;
+        }
 
+        col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+        col2 = baseConvertor((int)numberToData(sum * sign, ABSOLUTE).line, HEX_BASE, outArr2, PAD6);
+        fprintf(ob, "%s\t%s\t\n", col1, col2);
+        (*icLineCnt)++;
+        break;
+    case 1:
+        /*Immidiate addressing.
+        * Search for the operand in the dataSymbols,inst,external 
+        * tables and write output to the files based on the rules.*/
+        if ((tmpNode = lookup(strPtr, dataSymbolsTable))) /* Label found in the dataSymbolsTable*/
+        {
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int) numberToData(sum * sign, ABSOLUTE).line, HEX_BASE, outArr2, PAD6);
+            col2 = baseConvertor((int)numberToData(tmpNode->val + ic + IC_OFFSET + 1, RELOCATABLE).line,
+                                 HEX_BASE,
+                                 outArr2,
+                                 PAD6);
             fprintf(ob, "%s\t%s\t\n", col1, col2);
             (*icLineCnt)++;
-            break;
-        case 1:
-            /*Immidiate addressing.
-                search for the operand in the line,inst,external tables and write output to the files based on the rules.*/
-            if ((tmpNode = lookup(strPtr, dataSymbolsTable))) {
-                col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) numberToData(tmpNode->val + ic + IC_OFFSET + 1, RELOCATABLE).line,
-                                     HEX_BASE,
-                                     outArr2,
-                                     PAD6);
-                fprintf(ob, "%s\t%s\t\n", col1, col2);
-                (*icLineCnt)++;
-            }
-            else if ((tmpNode = lookup(strPtr, instTable))) {
-                col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) numberToData(tmpNode->val + IC_OFFSET + 1, RELOCATABLE).line,
-                                     HEX_BASE,
-                                     outArr2,
-                                     PAD6);
-                fprintf(ob, "%s\t%s\t\n", col1, col2);
-                (*icLineCnt)++;
-            }
-            else if ((tmpNode = lookup(strPtr, extTable))) {
+        }
+        else if ((tmpNode = lookup(strPtr, instTable))) /* Label found in instructions table*/
+        {
+            col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+            col2 = baseConvertor((int)numberToData(tmpNode->val + IC_OFFSET + 1, RELOCATABLE).line,
+                                 HEX_BASE,
+                                 outArr2,
+                                 PAD6);
+            fprintf(ob, "%s\t%s\t\n", col1, col2);
+            (*icLineCnt)++;
+        }
+        else if ((tmpNode = lookup(strPtr, extTable))) /* Label found in external table*/
+        {
 
-                col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) numberToData(0, EXTERNAL).line, HEX_BASE, outArr2,
-                                     PAD6);
-                fprintf(ob, "%s\t%s\t\n", col1, col2);
+            col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+            col2 = baseConvertor((int)numberToData(0, EXTERNAL).line, HEX_BASE, outArr2,
+                                 PAD6);
+            fprintf(ob, "%s\t%s\t\n", col1, col2);
 
-                col1 = strPtr;
-                col2 = baseConvertor(*icLineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                fprintf(ext, "%s\t%s\n", col1, col2);
-                (*icLineCnt)++;
-            }
-            else {
-                error(RED"*morePNedded: "RST"Can't find "YEL"\"%s\""RST" in ext | inst | data tables.\t| in line %d",
-                      strPtr, lineNum);
-            }
+            /* write the label to external file */
+            col1 = strPtr;
+            col2 = baseConvertor(*icLineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+            fprintf(ext, "%s\t%s\n", col1, col2);
+            (*icLineCnt)++;
+        }
+        else
+            /* Label wasn't found. */
+            error(RED "*morePNedded: " RST "Can't find " YEL "\"%s\"" RST " in ext | inst | dataSym tables.\t| in line %d",
+                  strPtr, lineNum);
+
+        break;
+    case 2:
+        /* Relative addressing.
+        * make sure the operand starts with '&' and put out an error if needed.
+        * search for the label in inst/dataSym tables and output the line as needed.
+        * if after all */
+        if (strPtr[0] != '&')
+        {
+            error(RED "*morePNedded: " RST "Relative addressing format must start with &.\t| in line %d",
+                  lineNum);
             break;
-        case 2:
-            /* Relative addressing.
-                 * make sure the operand starts with '&' and put out an error if needed.
-                 * search for the label in inst/dataSym tables and output the line as needed.
-                 * if after all */
-            if (strPtr[0] != '&') {
-                error(RED"*morePNedded: "RST"Relative addressing format must start with &.\t| in line %d",
-                      lineNum);
-                break;
-            }
-            strPtr++;
-            if ((tmpNode = lookup(strPtr, instTable))) {
-                col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) numberToData(tmpNode->val - *icLineCnt + 2, ABSOLUTE).line, HEX_BASE,
-                                     outArr2,
-                                     PAD6);
-                fprintf(ob, "%s\t%s\t\n", col1, col2);
-                (*icLineCnt)++;
-            }
-            else if ((tmpNode = lookup(strPtr, dataSymbolsTable))) {
-                col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int) numberToData(tmpNode->val + ic + IC_OFFSET + 1, ABSOLUTE).line,
-                                     HEX_BASE,
-                                     outArr2,
-                                     PAD6);
-                fprintf(ob, "%s\t%s\t\n", col1, col2);
-                (*icLineCnt)++;
-            }
-            else {
-                error(RED"*morePNedded: "RST"label %s dosen't supported for relative addressing.\t| in line %d", strPtr,
-                      lineNum);
-                break;
-            }
+        }
+        strPtr++;                                  /* advance the pointer after & */
+        if ((tmpNode = lookup(strPtr, instTable))) /* Label found in the external table*/
+        {
+            col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+            col2 = baseConvertor((int)numberToData(tmpNode->val - *icLineCnt + 2, ABSOLUTE).line, HEX_BASE,
+                                 outArr2,
+                                 PAD6);
+            fprintf(ob, "%s\t%s\t\n", col1, col2);
+            (*icLineCnt)++;
+        }
+        else if ((tmpNode = lookup(strPtr, dataSymbolsTable))) /* Label found in dataSymbolsTable */
+        {
+            col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
+            col2 = baseConvertor((int)numberToData(tmpNode->val + ic + IC_OFFSET + 1, ABSOLUTE).line,
+                                 HEX_BASE,
+                                 outArr2,
+                                 PAD6);
+            fprintf(ob, "%s\t%s\t\n", col1, col2);
+            (*icLineCnt)++;
+        }
+        else
+            /*Label wasn't found */
+            error(RED "*morePNedded: " RST "label %s dosen't supported for relative addressing.\t| in line %d", strPtr,
+                  lineNum);
+        break;
     }
 }
 
 /**
  * Addressing method validation.
  * The validation is being made by opcodes.
- * @param instLine {ptr}
- * @param lineNum {int}
  */
-void addressChecking(Instruction *instLine, int lineNum) {
-    switch ((unsigned int) instLine->opCode) {
-        case 0:
-            if ((unsigned int) instLine->srcAdd == 2)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if (((unsigned int) instLine->dstAdd) == 2 || ((unsigned int) instLine->dstAdd) == 0)
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 1:
-            if ((unsigned int) instLine->srcAdd == 2 || (unsigned int) instLine->dstAdd == 2)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            break;
-        case 2:
-            if ((unsigned int) instLine->srcAdd == 2)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if (((unsigned int) instLine->dstAdd) == 2 || ((unsigned int) instLine->dstAdd) == 0)
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 4:
-            if ((unsigned int) instLine->srcAdd != 1)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if (((unsigned int) instLine->dstAdd == 0) || ((unsigned int) instLine->dstAdd == 2))
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 5:
-            if ((unsigned int) instLine->srcAdd != 0)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if (((unsigned int) instLine->dstAdd == 0) || ((unsigned int) instLine->dstAdd == 2))
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 9:
-            if ((unsigned int) instLine->srcAdd != 0)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if ((unsigned int) instLine->dstAdd == 0 || (unsigned int) instLine->dstAdd == 3)
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 12:
-            if ((unsigned int) instLine->srcAdd != 0)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if ((unsigned int) instLine->dstAdd == 2 || (unsigned int) instLine->dstAdd == 0)
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 13:
-            if ((unsigned int) instLine->srcAdd != 0)
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            else {
-                if ((unsigned int) instLine->dstAdd == 2)
-                    error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            }
-            break;
-        case 14:
-            if (((unsigned int) instLine->srcAdd != 0) || ((unsigned int) instLine->dstAdd != 0))
-                error(RED"*addressChecking:"RST"Illegal addressing mode.\t|in line %d", lineNum);
-            break;
+void addressChecking(Instruction *instLine, int lineNum)
+{
+    switch ((unsigned int)instLine->opCode)
+    {
+    case 0:
+        if ((unsigned int)instLine->srcAdd == 2)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if (((unsigned int)instLine->dstAdd) == 2 || ((unsigned int)instLine->dstAdd) == 0)
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 1:
+        if ((unsigned int)instLine->srcAdd == 2 || (unsigned int)instLine->dstAdd == 2)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        break;
+    case 2:
+        if ((unsigned int)instLine->srcAdd == 2)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if (((unsigned int)instLine->dstAdd) == 2 || ((unsigned int)instLine->dstAdd) == 0)
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 4:
+        if ((unsigned int)instLine->srcAdd != 1)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if (((unsigned int)instLine->dstAdd == 0) || ((unsigned int)instLine->dstAdd == 2))
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 5:
+        if ((unsigned int)instLine->srcAdd != 0)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if (((unsigned int)instLine->dstAdd == 0) || ((unsigned int)instLine->dstAdd == 2))
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 9:
+        if ((unsigned int)instLine->srcAdd != 0)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if ((unsigned int)instLine->dstAdd == 0 || (unsigned int)instLine->dstAdd == 3)
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 12:
+        if ((unsigned int)instLine->srcAdd != 0)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if ((unsigned int)instLine->dstAdd == 2 || (unsigned int)instLine->dstAdd == 0)
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 13:
+        if ((unsigned int)instLine->srcAdd != 0)
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        else
+        {
+            if ((unsigned int)instLine->dstAdd == 2)
+                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        }
+        break;
+    case 14:
+        if (((unsigned int)instLine->srcAdd != 0) || ((unsigned int)instLine->dstAdd != 0))
+            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+        break;
     }
 }
-
-
