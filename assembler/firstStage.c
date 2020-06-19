@@ -41,7 +41,7 @@ int isValid(File_input *input, char *sym) {
         if (strcmp(&sym[strlen(sym) - 1], "\n") == 0)
             sym = strtok(sym, "\n");
         input->line.isDone = 1;
-        error(RED "*commandHandler:" RST " Unrecognized command-" YEL "\"%s\"" RST ".\t| in line %d.", sym,
+        error(RED "*commandHandler:" RST " Invalid command-" YEL "\"%s\"" RST ".\t| in line %d.", sym,
               (*input).lineNum); /* error handling */
         return 0;
     }
@@ -105,7 +105,7 @@ void commandHandler(File_input *input, char *symbol) {
         symbol = input->line.content;
         if (strcmp(&symbol[strlen(symbol) - 1], "\n") == 0) /* removing new line for cleaner outp*/
             symbol = strtok(symbol, "\n");
-        error(RED "*commandHandler:" RST " Unrecognized command - "YEL "\"%s\"" RST".| in line %d.", symbol,
+        error(RED "*commandHandler:" RST " Invalid command - "YEL "\"%s\"" RST".| in line %d.", symbol,
               (*input).lineNum);
         input->line.isDone = 1;
         return;

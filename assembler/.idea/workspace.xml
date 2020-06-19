@@ -30,7 +30,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="133d66eb-6e30-4f00-9eb6-095451da38f9" name="Default Changelist" comment="bug fixes in command validation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firstStage.c" beforeDir="false" afterPath="$PROJECT_DIR$/firstStage.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592570127940</updated>
-      <workItem from="1592570129890" duration="3756000" />
+      <workItem from="1592570129890" duration="3774000" />
     </task>
     <task id="LOCAL-00001" summary="bug fixes in command validation">
       <created>1592572227861</created>
