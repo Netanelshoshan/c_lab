@@ -17,9 +17,9 @@ void firstStage(File_input *file, int numOfLines) {
     /*vars decelerations*/
     int i;
     char *label;
-    errorFlag = 0, ic = 0, dc = 0, externCnt = 0, entryCnt = 0; /* init the counters with 0 values*/
+    errorFlag = 0, ic = 0, dc = 0, externCnt = 0, entryCnt = 0,totalErr=0; /* init the counters with 0 values*/
 
-    for (i = 0; i < numOfLines; i++) {
+    for (i = 0; i < numOfLines; i++) {/*run through the number of lines in the file and parse each one.*/
         label = isLabel(file + i);             /* label deceleration validation (LOOP,MAIN, etc..)*/
         spaceTrimmer(&(file[i].line.content)); /* space trimmer */
         if (file[i].line.content[0] == '.')    /* handling command deceleration */
@@ -41,7 +41,7 @@ int isValid(File_input *input, char *sym) {
         if (strcmp(&sym[strlen(sym) - 1], "\n") == 0)
             sym = strtok(sym, "\n");
         input->line.isDone = 1;
-        error(RED "*commandHandler:" RST " Invalid command-" YEL "\"%s\"" RST ".\t| in line %d.", sym,
+        error("Invalid command-" YEL "\"%s\"" RST ".\t| in line %d.", sym,
               (*input).lineNum); /* error handling */
         return 0;
     }
@@ -58,54 +58,60 @@ void commandHandler(File_input *input, char *symbol) {
         /* Will occur only if the line starts with "label:" */
         if (symbol)
             tmpNode = install(symbol, dc, dataSymbolsTable);
+        
         /*advance the pointer beyond deceleration and parse the string */
         input->line.content += (sizeof(".string") - 1);
-        if (!isValid(input, symbol))
+        
+        if (!isValid(input, symbol)) /* command validation */
             return;
+        
         stringHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
-    }
-    else if (strncmp(input->line.content, ".data", sizeof(".data") - 1) == 0) {
-        /*.data handling */
+
+    } else if (strncmp(input->line.content, ".data", sizeof(".data") - 1) == 0) {/*.data handling */
         /* Will occur only if the line starts with "label:" */
         if (symbol)
             tmpNode = install(symbol, dc, dataSymbolsTable);
 
         /*advance the pointer beyond deceleration and parse the data */
         input->line.content += (sizeof(".data") - 1);
-        if (!isValid(input, symbol))
+        
+        if (!isValid(input, symbol)) /* command validation */
             return;
+        
         dataHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
-    }
-    else if (strncmp(input->line.content, ".entry", sizeof(".entry") - 1) == 0) { /*.entry handling*/
+    } else if (strncmp(input->line.content, ".entry", sizeof(".entry") - 1) == 0) { /*.entry handling*/
         /*advance the pointer beyond deceleration and parse the entry */
         input->line.content += (sizeof(".entry") - 1);
-        if (!isValid(input, symbol))
-            return; /*command validation*/
+        
+        if (!isValid(input, symbol)) /*command validation*/
+            return; 
+        
         entryHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
         return;
-    }
-    else {
-        if (strncmp(input->line.content, ".extern", sizeof(".extern") - 1) == 0) {
-            /*.extern handling */
-            /*advance the pointer beyond deceleration and parse the extern label */
+    } else {
+        if (strncmp(input->line.content, ".extern", sizeof(".extern") - 1) == 0) { /*.extern handling */
+            /*advance the pointer beyond deceleration and parse the extern*/
             input->line.content += (sizeof(".extern") - 1);
-            if (!isValid(input, symbol))
+            
+            if (!isValid(input, symbol)) /* command validation */
                 return;
+            
             externHandler(input);
             input->line.isDone = 1; /* mark the line as done. no need to parse it again */
             return;
         }
+        
         /* This is unrecognized command.
          * mark the line as done, put out an error and return. */
         symbol = input->line.content;
         if (strcmp(&symbol[strlen(symbol) - 1], "\n") == 0) /* removing new line for cleaner outp*/
             symbol = strtok(symbol, "\n");
-        error(RED "*commandHandler:" RST " Invalid command - "YEL "\"%s\"" RST".| in line %d.", symbol,
+        error("Invalid command - "YEL "\"%s\"" RST".\t\t\t| in line %d.", symbol,
               (*input).lineNum);
         input->line.isDone = 1;
         return;
@@ -122,15 +128,16 @@ void dataHandler(File_input *input) {
     while ((*input).line.content[0] != '\n') {
         num = 0;
         spaceTrimmer(&((*input).line.content)); /* trim spaces */
-        if (input->line.content[0] == '-') { /* negative value validation, flag will raised if needed */
+        if (input->line.content[0] == '-') { /* negative value validation */
             sign = -1;
             (input->line.content)++;
         }
+        
         /* digit validation */
         if (!isdigit((*input).line.content[0]))
-            error(RED "*dataHandler: " RST " Wrong .data format - %s. Numbers expected.\t| in line %d.", (*input).line,
+            error("Wrong .data format - %s. Numbers expected.\t| in line %d.", (*input).line,
                   (*input).lineNum);
-            /*will run until ',' reached and multiply the number by 10 so we could handle it */
+        /*run until ',' reached and multiply the number by 10 so we could handle it */
         else {
             while (isdigit(input->line.content[0])) {
                 num *= 10;
@@ -143,13 +150,12 @@ void dataHandler(File_input *input) {
         if (input->line.content[0] == ',') { /* validate if we expecting more */
             moreFlag = 1;
             (input->line.content)++;
-        }
-        else /* if not */
+        } else /* if not */
             moreFlag = 0;
     }
     /* another number is expected but there just a ','*/
     if (moreFlag) {
-        error(RED "*dataHandler:" RST " number is expected after \',\'\t| in line %d.", (*input).lineNum);
+        error("number is expected after \',\'\t| in line %d.", (*input).lineNum);
     }
 }
 
@@ -159,7 +165,7 @@ void stringHandler(File_input *input) {
     spaceTrimmer(&((*input).line.content)); /*trim junk spaces*/
 
     if (input->line.content[0] != '\"') { /* comma validation*/
-        error(RED "*stringHandler: " RST ".string deceleration must start with '\"'\t| in line %d.",
+        error(".string deceleration must start with '\"'\t| in line %d.",
               (*input).lineNum);
         return;
     }
@@ -176,9 +182,8 @@ void stringHandler(File_input *input) {
      * end of the string */
     if (input->line.content[0] == '\"') {
         dataArray[dc++] = charToData('\0');
-    }
-    else { /* string does not end with \" */
-        error(RED "*stringHandler: " RST ".string deceleration must end with \"\t| in line %d.", (*input).lineNum);
+    } else { /* string does not end with \" */
+        error(".string deceleration must end with \"\t| in line %d.", (*input).lineNum);
         return;
     }
 }
@@ -188,21 +193,21 @@ void entryHandler(File_input *input) {
     input->line.content = strtok(input->line.content, " \t\n"); /* isolate the entry label */
 
     if (!input->line.content) { /* empty declaration */
-        error(RED "*entryHandler: " RST "No label provided after .entry command.\t| in line %d", (*input).lineNum);
+        error("No label provided after .entry command.\t| in line %d", (*input).lineNum);
         return;
     }
 
     entryTable[entryCnt++] = makeDup(input->line.content); /* copy the label to entryLabelArray */
 
     /* put out a message for the new entry*/
-    printf("*INFORM: " GRN ".entry " RST "deceleration " GRN " \"%s\""RST" has been made.\t| in line %d.\n",
+    printf(YEL"*INFORM: "RST GRN ".entry " RST "deceleration " GRN " \"%s\""RST" has been made.\t| in line %d.\n",
            input->line.content,
            (*input).lineNum);
 
     input->line.content = strtok(NULL, " \t\n");           /* trim the rest*/
 
     if (input->line.content) { /*if there's more after the command */
-        error(RED "*entryHandler: " RST "Multiple labels provided after .entry command.\t| in line %d.",
+        error("Multiple labels provided after .entry command.\t| in line %d.",
               (*input).lineNum);
     }
 }
@@ -213,13 +218,13 @@ void externHandler(File_input *input) {
     input->line.content = strtok(input->line.content, " \t\n"); /* isolate extern label */
 
     if (!input->line.content) { /* empty declaration */
-        error(RED "*externHandler:" RST " No external label provided after .extern command.\t| in line %d.",
+        error("No external label provided after .extern command.\t| in line %d.",
               (*input).lineNum);
         return;
     }
 
     /* put out a message for the new external*/
-    printf("*INFORM: " YEL ".extern" RST " deceleration" YEL " \"%s\" " RST "has been made.\t| in line %d.\n",
+    printf(YEL"*INFORM: "RST BLU ".extern" RST " deceleration" BLU " \"%s\" " RST "has been made.\t| in line %d.\n",
            input->line.content,
            (*input).lineNum);
 
@@ -228,7 +233,7 @@ void externHandler(File_input *input) {
     input->line.content = strtok(NULL, " \t\n"); /*trim the rest*/
 
     if (input->line.content) { /*if there's more after the command */
-        error(RED "*externHandler: " RST "Multiple labels provided after .extern command.\t| in line %d.",
+        error("Multiple labels provided after .extern command.\t| in line %d.",
               (*input).lineNum);
     }
 }
@@ -237,12 +242,10 @@ void externHandler(File_input *input) {
 char expectedOperands(char *name) {
     if (strcmp(name, "rts") == 0 || strcmp(name, "stop") == 0) {
         return 0;
-    }
-    else if (strcmp(name, "mov") == 0 || strcmp(name, "cmp") == 0 || strcmp(name, "add") == 0 ||
-             strcmp(name, "sub") == 0 || strcmp(name, "lea") == 0) {
+    } else if (strcmp(name, "mov") == 0 || strcmp(name, "cmp") == 0 || strcmp(name, "add") == 0 ||
+               strcmp(name, "sub") == 0 || strcmp(name, "lea") == 0) {
         return 2;
-    }
-    else
+    } else
         return 1;
 }
 
@@ -266,7 +269,7 @@ void instructionHandler(File_input *input) {
             input->line.isDone = 1;
             return;
         }
-        error(RED "*InstructionParsing: " RST "Invalid instruction- " YEL "\"%s\"" RST ".\t| in line %d.",
+        error("Invalid instruction- " YEL "\"%s\"" RST ".\t\t| in line %d.",
               makeDup(input->line.content),
               (*input).lineNum);
         input->line.isDone = 1;
@@ -327,8 +330,7 @@ void instructionHandler(File_input *input) {
                         input->instruction->srcReg = input->line.content[0] - '0';
                         (input->srcOpr) = NULL;
                         input->instruction->srcAdd = 3;
-                    }
-                    else { /*HERE*/
+                    } else { /*HERE*/
                         input->instruction->dstReg = input->line.content[0] - '0';
                         (input->dstOpr) = NULL;
                         input->instruction->dstAdd = 3;
@@ -360,7 +362,7 @@ char *isLabel(File_input *input) {
         if (*(input->line.content) == ':') {                                      /* if it a label decleration */
             *((input->line.content)++) = '\0'; /*put a null char in front of it and send the TMPSTR */
             if (!isalpha(tmpStr[0])) { /* label deceleration validation*/
-                error(RED "*isLabel: " RST "label must start with character.\t| in line %d.", (*input).lineNum);
+                error("label must start with character.\t| in line %d.", (*input).lineNum);
             }
             return tmpStr;
         }

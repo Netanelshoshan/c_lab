@@ -162,7 +162,7 @@ data numberToData(int num, int are)
     /*A,R,E handling*/
     switch (are)
     {
-    case X: /* if it's about a number */
+    case X: /* if it's a number */
         return d;
     case ABSOLUTE:
         d.line = d.line << 3;
@@ -199,39 +199,39 @@ data charToData(char ch)
 }
 
 /* Instruction line initializer */
-void initInstructionLine(Instruction *instLine)
+void initInstructionLine(Instruction *inst)
 {
-    instLine->E = 0;
-    instLine->R = 0;
-    instLine->A = 0;
-    instLine->funct = 0;
-    instLine->dstReg = 0;
-    instLine->dstAdd = 0;
-    instLine->srcReg = 0;
-    instLine->srcAdd = 0;
-    instLine->opCode = 0;
+    inst->E = 0;
+    inst->R = 0;
+    inst->A = 0;
+    inst->funct = 0;
+    inst->dstReg = 0;
+    inst->dstAdd = 0;
+    inst->srcReg = 0;
+    inst->srcAdd = 0;
+    inst->opCode = 0;
 }
 
 /* mask for convert_IL_to_data function. */
 unsigned char mask[] = {0x0, 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F, 0xFF};
 
-/* Converts Instruction object to 24 data instLine.
- * It creates 24 bit data instLine and
+/* Converts Instruction object to 24 data inst.
+ * It creates 24 bit data inst and
  * insert the Instruction obj into it using a special mask. */
-data convert_IL_to_data(Instruction instLine)
+data convert_IL_to_data(Instruction inst)
 {
     data d;
-    initDataLine(&d); /*initialize the 24 bit data instLine. */
+    initDataLine(&d); /*initialize the 24 bit data line. */
 
-    d.line |= mask[TYPE_WIDTH] << EXTERNAL_OFFSET & instLine.E << EXTERNAL_OFFSET;
-    d.line |= mask[TYPE_WIDTH] << RELOCATABLE_OFFSET & instLine.R << RELOCATABLE_OFFSET;
-    d.line |= mask[TYPE_WIDTH] << ABSOLUTE_OFFSET & instLine.A << ABSOLUTE_OFFSET;
-    d.line |= mask[FUNCT_WIDTH] << FUNCT_OFFSET & instLine.funct << FUNCT_OFFSET;
-    d.line |= mask[DREG_WIDTH] << DREG_OFFSET & instLine.dstReg << DREG_OFFSET;
-    d.line |= mask[DADDR_WIDTH] << DADDR_OFFSET & instLine.dstAdd << DADDR_OFFSET;
-    d.line |= mask[SREG_WIDTH] << SREG_OFFSET & instLine.srcReg << SREG_OFFSET;
-    d.line |= mask[SADDR_WIDTH] << SADDR_OFFSET & instLine.srcAdd << SADDR_OFFSET;
-    d.line |= mask[OPCODE_WIDTH] << OPCODE_OFFSET & instLine.opCode << OPCODE_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << EXTERNAL_OFFSET & inst.E << EXTERNAL_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << RELOCATABLE_OFFSET & inst.R << RELOCATABLE_OFFSET;
+    d.line |= mask[TYPE_WIDTH] << ABSOLUTE_OFFSET & inst.A << ABSOLUTE_OFFSET;
+    d.line |= mask[FUNCT_WIDTH] << FUNCT_OFFSET & inst.funct << FUNCT_OFFSET;
+    d.line |= mask[DREG_WIDTH] << DREG_OFFSET & inst.dstReg << DREG_OFFSET;
+    d.line |= mask[DADDR_WIDTH] << DADDR_OFFSET & inst.dstAdd << DADDR_OFFSET;
+    d.line |= mask[SREG_WIDTH] << SREG_OFFSET & inst.srcReg << SREG_OFFSET;
+    d.line |= mask[SADDR_WIDTH] << SADDR_OFFSET & inst.srcAdd << SADDR_OFFSET;
+    d.line |= mask[OPCODE_WIDTH] << OPCODE_OFFSET & inst.opCode << OPCODE_OFFSET;
 
-    return d; /* return the converted instLine */
+    return d; /* return the converted instruction line */
 }

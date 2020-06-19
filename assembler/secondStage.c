@@ -102,7 +102,7 @@ void writeEnt()
         }
         /* entry wasn't found on both instTable and dataSymbolsTable */
         else
-            error(RED "*writeEnt: " RST "can't find address for entry" YEL " \"%s\"." RST, entryTable[i]);
+            error("can't find address for entry" YEL " \"%s\"." RST, entryTable[i]);
     }
 }
 
@@ -253,7 +253,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         }
         else
             /* Label wasn't found. */
-            error(RED "*morePNedded: " RST "Can't find " YEL "\"%s\"" RST " in ext | inst | dataSym tables.\t| in line %d",
+            error("Can't find " YEL "\"%s\"" RST " in ext | inst | dataSym tables.| in line %d",
                   strPtr, lineNum);
 
         break;
@@ -264,7 +264,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         * if after all */
         if (strPtr[0] != '&')
         {
-            error(RED "*morePNedded: " RST "Relative addressing format must start with &.\t| in line %d",
+            error("Relative addressing format must start with &.\t| in line %d",
                   lineNum);
             break;
         }
@@ -290,7 +290,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         }
         else
             /*Label wasn't found */
-            error(RED "*morePNedded: " RST "label %s dosen't supported for relative addressing.\t| in line %d", strPtr,
+            error("label %s dosen't supported for relative addressing.\t| in line %d", strPtr,
                   lineNum);
         break;
     }
@@ -306,74 +306,74 @@ void addressChecking(Instruction *instLine, int lineNum)
     {
     case 0:
         if ((unsigned int)instLine->srcAdd == 2)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if (((unsigned int)instLine->dstAdd) == 2 || ((unsigned int)instLine->dstAdd) == 0)
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 1:
         if ((unsigned int)instLine->srcAdd == 2 || (unsigned int)instLine->dstAdd == 2)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         break;
     case 2:
         if ((unsigned int)instLine->srcAdd == 2)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if (((unsigned int)instLine->dstAdd) == 2 || ((unsigned int)instLine->dstAdd) == 0)
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 4:
         if ((unsigned int)instLine->srcAdd != 1)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if (((unsigned int)instLine->dstAdd == 0) || ((unsigned int)instLine->dstAdd == 2))
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 5:
         if ((unsigned int)instLine->srcAdd != 0)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if (((unsigned int)instLine->dstAdd == 0) || ((unsigned int)instLine->dstAdd == 2))
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 9:
         if ((unsigned int)instLine->srcAdd != 0)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if ((unsigned int)instLine->dstAdd == 0 || (unsigned int)instLine->dstAdd == 3)
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 12:
         if ((unsigned int)instLine->srcAdd != 0)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if ((unsigned int)instLine->dstAdd == 2 || (unsigned int)instLine->dstAdd == 0)
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 13:
         if ((unsigned int)instLine->srcAdd != 0)
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         else
         {
             if ((unsigned int)instLine->dstAdd == 2)
-                error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+                error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         }
         break;
     case 14:
         if (((unsigned int)instLine->srcAdd != 0) || ((unsigned int)instLine->dstAdd != 0))
-            error(RED "*addressChecking:" RST "Illegal addressing mode.\t|in line %d", lineNum);
+            error("Illegal addressing mode.\t\t\t|in line %d", lineNum);
         break;
     }
 }

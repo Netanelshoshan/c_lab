@@ -12,13 +12,14 @@
 /* global vars for system use */
 int entryCnt, externCnt;
 int i, ic, dc;
-int errorFlag;
+int errorFlag,totalErr;
 
 
 /* Color indicators */
 #define RED "\x1B[31m"
 #define GRN "\x1B[32m"
 #define YEL "\x1B[33m"
+#define BLU "\x1B[34m"
 #define RST "\x1B[0m"
 
 /* Warm welcome */
