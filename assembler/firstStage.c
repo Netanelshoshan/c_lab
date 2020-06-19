@@ -41,7 +41,6 @@ int isValid(File_input *input, char *sym) {
         if (strcmp(&sym[strlen(sym) - 1], "\n") == 0)
             sym = strtok(sym, "\n");
         input->line.isDone = 1;
-        input->line.content = NULL;
         error(RED "*commandHandler:" RST " Unrecognized command-" YEL "\"%s\"" RST ".\t| in line %d.", sym,
               (*input).lineNum); /* error handling */
         return 0;
@@ -76,9 +75,10 @@ void commandHandler(File_input *input, char *symbol) {
         /*advance the pointer beyond deceleration and parse the data */
         input->line.content += (sizeof(".data") - 1);
         if (!isValid(input, symbol))
-            return; /*command validation*/
+            return;
         dataHandler(input);
         input->line.isDone = 1; /* mark the line as done. no need to parse it again */
+        return;
     }
     else if (strncmp(input->line.content, ".entry", sizeof(".entry") - 1) == 0) { /*.entry handling*/
         /*advance the pointer beyond deceleration and parse the entry */
@@ -94,11 +94,10 @@ void commandHandler(File_input *input, char *symbol) {
             /*.extern handling */
             /*advance the pointer beyond deceleration and parse the extern label */
             input->line.content += (sizeof(".extern") - 1);
-            if (isValid(input, symbol)) {
-                externHandler(input);
-                input->line.isDone = 1; /* mark the line as done. no need to parse it again */
+            if (!isValid(input, symbol))
                 return;
-            }
+            externHandler(input);
+            input->line.isDone = 1; /* mark the line as done. no need to parse it again */
             return;
         }
         /* This is unrecognized command.
@@ -196,8 +195,8 @@ void entryHandler(File_input *input) {
     entryTable[entryCnt++] = makeDup(input->line.content); /* copy the label to entryLabelArray */
 
     /* put out a message for the new entry*/
-    printf("*INFORM: " GRN ".entry " RST "deceleration " GRN "\"%s\""RST"has been made.\t| in line %d.\n",
-           makeDup(input->line.content),
+    printf("*INFORM: " GRN ".entry " RST "deceleration " GRN " \"%s\""RST" has been made.\t| in line %d.\n",
+           input->line.content,
            (*input).lineNum);
 
     input->line.content = strtok(NULL, " \t\n");           /* trim the rest*/
@@ -221,7 +220,7 @@ void externHandler(File_input *input) {
 
     /* put out a message for the new external*/
     printf("*INFORM: " YEL ".extern" RST " deceleration" YEL " \"%s\" " RST "has been made.\t| in line %d.\n",
-           makeDup(input->line.content),
+           input->line.content,
            (*input).lineNum);
 
     install(input->line.content, '0', extTable); /*install label into extTable with 0 value */

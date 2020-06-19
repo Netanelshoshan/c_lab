@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 
     initOpCodes(); /* opcodes initializer */
 
-    for (i = 1; i < argc; i++) {
+    for (i = 0; i < argc; i++) {
         int cnt = 0, bufCnt = BUF_SIZE; /*line and buffer counters*/
         File_input *file, *tmp;         /* File_input pointers */
         tmpF = argv[i];
@@ -51,8 +51,8 @@ int main(int argc, char **argv) {
             printf(YEL "%s====\n" RST, LINE);
             exit(2);
         }
-        /*fp = fopen("/Users/mbp/Documents/cs/c_lab/assembler/tests/i2.as", "r");*/
-        /* appending .as extension for the input file and open it */
+        /*fp = fopen("/Users/mbp/Documents/cs/c_lab/assembler/tests/i1.as", "r");*/
+        /* appending .as extension for the input file and open it*/
         sprintf(fileName, "%s.as", argv[i]);
         fp = fopen(fileName, "r");
 

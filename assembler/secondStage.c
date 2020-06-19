@@ -26,6 +26,7 @@ void secondStage(File_input *file, int numOfLines, char *filePath)
 {
     char fileName[MAX_FILENAME];
     lineCnt = 0; /* counter for the output lines */
+    /*filePath = "/Users/mbp/i1";*/
 
     /* Create the files with the the proper extension, and in the org path. */
     sprintf(fileName, "%s.ob", filePath);
@@ -102,7 +103,6 @@ void writeEnt()
         /* entry wasn't found on both instTable and dataSymbolsTable */
         else
             error(RED "*writeEnt: " RST "can't find address for entry" YEL " \"%s\"." RST, entryTable[i]);
-        break;
     }
 }
 
