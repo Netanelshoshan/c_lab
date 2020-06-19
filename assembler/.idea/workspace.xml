@@ -30,11 +30,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="133d66eb-6e30-4f00-9eb6-095451da38f9" name="Default Changelist" comment="bug fixes in command validation">
-      <change beforePath="$PROJECT_DIR$/assembler" beforeDir="false" afterPath="$PROJECT_DIR$/assembler" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler.c" beforeDir="false" afterPath="$PROJECT_DIR$/assembler.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler.dSYM/Contents/Resources/DWARF/assembler" beforeDir="false" afterPath="$PROJECT_DIR$/assembler.dSYM/Contents/Resources/DWARF/assembler" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firstStage.c" beforeDir="false" afterPath="$PROJECT_DIR$/firstStage.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondStage.c" beforeDir="false" afterPath="$PROJECT_DIR$/secondStage.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592570127940</updated>
-      <workItem from="1592570129890" duration="3380000" />
+      <workItem from="1592570129890" duration="3756000" />
     </task>
     <task id="LOCAL-00001" summary="bug fixes in command validation">
       <created>1592572227861</created>
@@ -120,42 +116,42 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="359" y="122" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1440.900@0.0.1440.900" timestamp="1592571160696" />
-    <state width="465" height="466" key="DebuggerActiveHint" timestamp="1592570318247">
+    <state width="465" height="466" key="DebuggerActiveHint" timestamp="1592573978415">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="465" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1592570318247" />
-    <state width="1398" height="304" key="GridCell.Tab.0.bottom" timestamp="1592573865894">
+    <state width="465" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1592573978415" />
+    <state width="1398" height="304" key="GridCell.Tab.0.bottom" timestamp="1592574109516">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592573865894" />
-    <state width="1398" height="304" key="GridCell.Tab.0.center" timestamp="1592573865892">
+    <state width="1398" height="304" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592574109516" />
+    <state width="1398" height="304" key="GridCell.Tab.0.center" timestamp="1592574109515">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592573865892" />
-    <state width="1398" height="304" key="GridCell.Tab.0.left" timestamp="1592573865891">
+    <state width="1398" height="304" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592574109515" />
+    <state width="1398" height="304" key="GridCell.Tab.0.left" timestamp="1592574109515">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592573865891" />
-    <state width="1398" height="304" key="GridCell.Tab.0.right" timestamp="1592573865893">
+    <state width="1398" height="304" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592574109515" />
+    <state width="1398" height="304" key="GridCell.Tab.0.right" timestamp="1592574109516">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592573865893" />
-    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1592573865895">
+    <state width="1398" height="304" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592574109516" />
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1592574015474">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592573865895" />
-    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1592573865895">
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592574015474" />
+    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1592574015474">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1592573865895" />
-    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1592573865894">
+    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1592574015474" />
+    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1592574015473">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1592573865894" />
-    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1592573865895">
+    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1592574015473" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1592574015474">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1592573865895" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1592574015474" />
     <state x="221" y="89" key="SettingsEditor" timestamp="1592571464479">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -170,7 +166,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/secondStage.c</url>
-          <line>38</line>
+          <line>39</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
