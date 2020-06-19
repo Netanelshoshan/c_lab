@@ -35,7 +35,8 @@ paamAharona
 END:    stop
 
 ;unrecogized command
-.entrylio LENGTH
-
 .entry LENGTH
+
+.extenalii sss
+
 K:    .data  2,2,222,2

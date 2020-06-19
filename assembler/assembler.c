@@ -16,24 +16,21 @@
  * The fucntion will initialize, count and allocate enough space for each line in the given file.
  * then, the function will invoke first and second stage functions.
  */
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     /* var deceleration */
     int i;
     FILE *fp;
     char fileName[MAX_FILENAME], *tmpF;
 
     /* print welcome + help massages */
-    if (argc == 1)
-    {
+    if (argc == 1) {
         printf(GRN "\n%s\n" RST, LINE);
         printf("\t  %s | %s\n", PROG_NAME, VERSION);
         printf("%s\n", HELP);
         printf(GRN "%s\n\n" RST, LINE);
     }
 
-    if (argc > 1)
-    {
+    if (argc > 1) {
         /* print welcome message */
         printf(GRN "\n%s\n" RST, LINE);
         printf("\t  %s | %s\n", PROG_NAME, VERSION);
@@ -42,28 +39,25 @@ int main(int argc, char **argv)
 
     initOpCodes(); /* opcodes initializer */
 
-    for (i = 1; i < argc; i++)
-    {
+    for (i = 1; i < argc; i++) {
         int cnt = 0, bufCnt = BUF_SIZE; /*line and buffer counters*/
         File_input *file, *tmp;         /* File_input pointers */
         tmpF = argv[i];
 
-        /* max file length validation */
-        if (strlen(argv[i]) > MAX_FILENAME)
-        {
+        /* max file length validation*/
+        if (strlen(argv[i]) > MAX_FILENAME) {
             printf(YEL "\n%s====\n" RST, LINE);
             error(YEL "*ERROR: " RST "File name can be up to 20 characters.");
             printf(YEL "%s====\n" RST, LINE);
             exit(2);
         }
-        /*fp = fopen("/Users/mbp/Documents/cs/sysProgLab/Assembler_v1.3/tests/i1.as", "r");*/
-        /* appending .as extension for the input file and open it*/
+        /*fp = fopen("/Users/mbp/Documents/cs/c_lab/assembler/tests/i2.as", "r");*/
+        /* appending .as extension for the input file and open it */
         sprintf(fileName, "%s.as", argv[i]);
         fp = fopen(fileName, "r");
 
-        /* file wasn't found or was given with the .as extention*/
-        if (fp == NULL)
-        {
+        /* file wasn't found or was given with the .as extension*/
+        if (fp == NULL) {
             printf(YEL "\n%s----\n" RST, LINE);
             error(YEL "*ERROR: " RST "Please provide \"%s\" without the " RED ".as " RST "extension.\n", tmpF);
             printf(YEL "%s----\n" RST, LINE);
@@ -75,22 +69,19 @@ int main(int argc, char **argv)
         file[cnt].line.content = malloc(sizeof(char) * LINE_LENGTH);
 
         /* read the file */
-        while (fgets(file[cnt].line.content, LINE_LENGTH, fp))
-        {
+        while (fgets(file[cnt].line.content, LINE_LENGTH, fp)) {
 
             /* new lines and comment indicators */
             if (isNewLine(&(file[cnt]).line.content) || isComment(&(file[cnt]).line.content))
                 continue;
 
             /* if there's a need for memory reallocation */
-            if (cnt == bufCnt)
-            {
+            if (cnt == bufCnt) {
                 bufCnt += BUF_SIZE;
                 tmp = realloc(file, sizeof(File_input) * bufCnt);
                 if (tmp)
                     file = tmp;
-                else
-                { /* cant allocate more space */
+                else { /* cant allocate more space */
                     error(RED "*SYSTEM: buf is full and mem realloc - FAILED." RST);
                     exit(2);
                 }
