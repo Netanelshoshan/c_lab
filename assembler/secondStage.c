@@ -142,16 +142,16 @@ void writeOb(File_input *file, int numOfLines)
         if (!file[i].line.isDone)
         {
 
-            /*validate addressing methods for the instruction opcode */
-            addressChecking(file[i].instruction, file[i].lineNum);
+            /*validate addressing methods for the instruction  */
+            isValidAddr(file[i].instruction, file[i].lineNum);
 
-            /* parse the line based on the number of repeated operand (DOC WAS GIVEN IN instructionHandler) */
+            /* parse the line based on the number of repeated operand */
             for (j = 0; j < file[i].line.moreParsing; j++)
             {
 
                 /* write whole line the the ob file */
                 col1 = baseConvertor(lineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int)convert_IL_to_data(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
+                col2 = baseConvertor((int)instTo24B(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
                 fprintf(ob, "%s\t%s\t\n", col1, col2);
                 lineCnt++;
 
@@ -209,7 +209,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         }
 
         col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-        col2 = baseConvertor((int)numberToData(sum * sign, ABSOLUTE).line, HEX_BASE, outArr2, PAD6);
+        col2 = baseConvertor((int)numTo24Bit(sum * sign, ABSOLUTE).line, HEX_BASE, outArr2, PAD6);
         fprintf(ob, "%s\t%s\t\n", col1, col2);
         (*icLineCnt)++;
         break;
@@ -220,7 +220,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         if ((tmpNode = lookup(strPtr, dataSymbolsTable))) /* Label found in the dataSymbolsTable*/
         {
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int)numberToData(tmpNode->val + ic + IC_OFFSET + 1, RELOCATABLE).line,
+            col2 = baseConvertor((int)numTo24Bit(tmpNode->val + ic + IC_OFFSET + 1, RELOCATABLE).line,
                                  HEX_BASE,
                                  outArr2,
                                  PAD6);
@@ -230,7 +230,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         else if ((tmpNode = lookup(strPtr, instTable))) /* Label found in instructions table*/
         {
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int)numberToData(tmpNode->val + IC_OFFSET + 1, RELOCATABLE).line,
+            col2 = baseConvertor((int)numTo24Bit(tmpNode->val + IC_OFFSET + 1, RELOCATABLE).line,
                                  HEX_BASE,
                                  outArr2,
                                  PAD6);
@@ -241,7 +241,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         {
 
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int)numberToData(0, EXTERNAL).line, HEX_BASE, outArr2,
+            col2 = baseConvertor((int)numTo24Bit(0, EXTERNAL).line, HEX_BASE, outArr2,
                                  PAD6);
             fprintf(ob, "%s\t%s\t\n", col1, col2);
 
@@ -272,7 +272,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         if ((tmpNode = lookup(strPtr, instTable))) /* Label found in the external table*/
         {
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int)numberToData(tmpNode->val - *icLineCnt + 2, ABSOLUTE).line, HEX_BASE,
+            col2 = baseConvertor((int)numTo24Bit(tmpNode->val - *icLineCnt + 2, ABSOLUTE).line, HEX_BASE,
                                  outArr2,
                                  PAD6);
             fprintf(ob, "%s\t%s\t\n", col1, col2);
@@ -281,7 +281,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
         else if ((tmpNode = lookup(strPtr, dataSymbolsTable))) /* Label found in dataSymbolsTable */
         {
             col1 = baseConvertor((*icLineCnt) + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-            col2 = baseConvertor((int)numberToData(tmpNode->val + ic + IC_OFFSET + 1, ABSOLUTE).line,
+            col2 = baseConvertor((int)numTo24Bit(tmpNode->val + ic + IC_OFFSET + 1, ABSOLUTE).line,
                                  HEX_BASE,
                                  outArr2,
                                  PAD6);
@@ -300,7 +300,7 @@ void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt
  * Addressing method validation.
  * The validation is being made by opcodes.
  */
-void addressChecking(Instruction *instLine, int lineNum)
+void isValidAddr(Instruction *instLine, int lineNum)
 {
     switch ((unsigned int)instLine->opCode)
     {

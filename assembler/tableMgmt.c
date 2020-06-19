@@ -141,7 +141,7 @@ void initOpCodes()
  * The function will also get required A,R,E and set the the
  * A,R,E field of the data as needed.
  */
-data numberToData(int num, int are)
+data numTo24Bit(int num, int are)
 {
 
     /* mask for 2^21-1.Filling all bits with 1111...11 */
@@ -188,7 +188,7 @@ void initDataLine(data *dataPtr)
 }
 
 /* converts char to 24 bit data line */
-data charToData(char ch)
+data chTo24Bit(char ch)
 {
     data ptr;
 
@@ -199,7 +199,7 @@ data charToData(char ch)
 }
 
 /* Instruction line initializer */
-void initInstructionLine(Instruction *inst)
+void initInstruction(Instruction *inst)
 {
     inst->E = 0;
     inst->R = 0;
@@ -215,10 +215,10 @@ void initInstructionLine(Instruction *inst)
 /* mask for convert_IL_to_data function. */
 unsigned char mask[] = {0x0, 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F, 0xFF};
 
-/* Converts Instruction object to 24 data inst.
- * It creates 24 bit data inst and
+/* Converts Instruction object to 24 bit.
+ * It creates 24 bit data and
  * insert the Instruction obj into it using a special mask. */
-data convert_IL_to_data(Instruction inst)
+data instTo24B(Instruction inst)
 {
     data d;
     initDataLine(&d); /*initialize the 24 bit data line. */

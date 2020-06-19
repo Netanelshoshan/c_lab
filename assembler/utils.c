@@ -23,8 +23,6 @@
         y = _x;               \
     } while (0)
 
-
-
 /* A utility function to reverse a string */
 void reverse(char *str, int length)
 {
@@ -174,7 +172,7 @@ void error(char *msg, ...)
 {
     va_list args;
     va_start(args, msg);
-    fprintf(stderr,RED"*error: "RST);
+    fprintf(stderr, RED "*error: " RST);
     vfprintf(stderr, msg, args);
     fprintf(stderr, "\n");
     va_end(args);

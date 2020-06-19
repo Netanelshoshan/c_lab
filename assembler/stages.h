@@ -19,7 +19,7 @@ FILE *ob, *ext, *ent;
 /*-------------------- second stage functions ---------------------*/
 
 void morePNedded(char *strPtr, char address, FILE *ob, FILE *ext, int *icLineCnt, int lineNum);
-void addressChecking(Instruction *instLine, int lineNum);
+void isValidAddr(Instruction *instLine, int lineNum);
 void writeOb(File_input *file, int numOfLines);
 void writeEnt();
 void clearTables();
@@ -33,7 +33,7 @@ void externHandler(File_input *pInput);
 char expectedOperands(char *name);
 void instructionHandler(File_input *fInput);
 void commandHandler(File_input *fInput, char *symbol);
-int isValid(File_input *file,char *sym);
+int isValid(File_input *file, char *sym);
 char *isLabel(File_input *fInput);
 
 #endif

@@ -12,8 +12,7 @@
 /* global vars for system use */
 int entryCnt, externCnt;
 int i, ic, dc;
-int errorFlag,totalErr;
-
+int errorFlag, totalErr;
 
 /* Color indicators */
 #define RED "\x1B[31m"
