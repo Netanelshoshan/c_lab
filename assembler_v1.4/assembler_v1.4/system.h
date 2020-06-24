@@ -17,7 +17,7 @@ int errorFlag, totalErr;
 
 /* Warm welcome */
 #define PROG_NAME "ASSEMBLER"
-#define VERSION "MMN_14 v1.3 | 316393321"
+#define VERSION "MMN_14 v1.4 | 316393321"
 #define LINE "----------------------------------------------------------"
 #define HELP "Usage:\tassembler"  " [input_file]"  
 
