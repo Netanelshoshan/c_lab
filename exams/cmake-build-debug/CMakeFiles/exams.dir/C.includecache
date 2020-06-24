@@ -6,9 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/Users/mbp/Documents/cs/sysProgLab/debugging/a.c
+/Users/mbp/Documents/cs/c_lab/exams/main.c
 stdio.h
 -
 stdlib.h
+-
+ctype.h
+-
+string.h
+-
+stdarg.h
 -
 

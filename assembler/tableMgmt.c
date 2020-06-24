@@ -218,7 +218,7 @@ unsigned char mask[] = {0x0, 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F, 0xFF};
 /* Converts Instruction object to 24 bit.
  * It creates 24 bit data and
  * insert the Instruction obj into it using a special mask. */
-data instTo24B(Instruction inst)
+data instTo24Bit(Instruction inst)
 {
     data d;
     initDataLine(&d); /*initialize the 24 bit data line. */

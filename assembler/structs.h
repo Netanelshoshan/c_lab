@@ -69,7 +69,7 @@ sysNode *install(char *name, int val, sysNode **table);                     /* f
 sysNode *installOpcode(char *name, int funct, int opcVal, sysNode **table); /* responsible for opcode init */
 data chTo24Bit(char ch);                                                    /* character to 24 bit line converter */
 data numTo24Bit(int num, int are);                                          /* converting a singed int to 24 bit line */
-data instTo24B(Instruction inst);                                           /* instruction object to 24 bit data line */
+data instTo24Bit(Instruction inst);                                         /* instruction object to 24 bit data line */
 unsigned int hash(char *s);                                                 /* hashing function */
 int functFetcher(char *string, sysNode **table);                            /* funct fetcher */
 void initOpCodes();                                                         /* opcode table initializer */

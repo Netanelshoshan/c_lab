@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/mbp/Documents/cs/sysProgLab/debugging/a.c" "/Users/mbp/Documents/cs/sysProgLab/debugging/cmake-build-debug/CMakeFiles/debugging.dir/a.c.o"
+  "/Users/mbp/Documents/cs/c_lab/debugging/a.c" "/Users/mbp/Documents/cs/c_lab/debugging/cmake-build-debug/CMakeFiles/debugging.dir/a.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

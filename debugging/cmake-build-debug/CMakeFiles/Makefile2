@@ -44,10 +44,10 @@ RM = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/2
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/sysProgLab/debugging
+CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/c_lab/debugging
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/sysProgLab/debugging/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/c_lab/debugging/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/debugging.dir/clean
 CMakeFiles/debugging.dir/all:
 	$(MAKE) -f CMakeFiles/debugging.dir/build.make CMakeFiles/debugging.dir/depend
 	$(MAKE) -f CMakeFiles/debugging.dir/build.make CMakeFiles/debugging.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mbp/Documents/cs/sysProgLab/debugging/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target debugging"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mbp/Documents/cs/c_lab/debugging/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target debugging"
 .PHONY : CMakeFiles/debugging.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/debugging.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/sysProgLab/debugging/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/debugging/cmake-build-debug/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/debugging.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/sysProgLab/debugging/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/debugging/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/debugging.dir/rule
 
 # Convenience name for target.

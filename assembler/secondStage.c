@@ -151,7 +151,7 @@ void writeOb(File_input *file, int numOfLines)
 
                 /* write whole line the the ob file */
                 col1 = baseConvertor(lineCnt + IC_OFFSET, DEC_BASE, outArr1, PAD7);
-                col2 = baseConvertor((int)instTo24B(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
+                col2 = baseConvertor((int)instTo24Bit(*(file[i].instruction)).line, HEX_BASE, outArr2, PAD6);
                 fprintf(ob, "%s\t%s\t\n", col1, col2);
                 lineCnt++;
 
