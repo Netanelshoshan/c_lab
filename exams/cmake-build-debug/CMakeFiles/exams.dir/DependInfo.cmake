@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/mbp/Documents/cs/c_lab/exams/main.c" "/Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles/exams.dir/main.c.o"
+  "/Users/mbp/Documents/cs/c_lab/exams/test.c" "/Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles/exams.dir/test.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

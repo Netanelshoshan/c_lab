@@ -7,7 +7,7 @@ LOOP:    jmp  &END
 ;here I cant even reach "nsh" because of knowing the numofops.
 ;so the prog won't advance the pointer, therefor -NoProblemo.
 
-prn w nsh
+prn w
 
 ;instruction error
 subliminal #1, r1

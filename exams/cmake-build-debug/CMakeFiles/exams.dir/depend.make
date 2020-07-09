@@ -3,3 +3,5 @@
 
 CMakeFiles/exams.dir/main.c.o: ../main.c
 
+CMakeFiles/exams.dir/test.c.o: ../test.c
+

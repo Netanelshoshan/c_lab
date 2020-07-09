@@ -81,6 +81,9 @@
 		<Unit filename="/Users/mbp/Documents/cs/c_lab/exams/main.c">
 			<Option target="exams"/>
 		</Unit>
+		<Unit filename="/Users/mbp/Documents/cs/c_lab/exams/test.c">
+			<Option target="exams"/>
+		</Unit>
 		<Unit filename="/Users/mbp/Documents/cs/c_lab/exams/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
