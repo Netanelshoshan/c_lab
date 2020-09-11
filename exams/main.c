@@ -1,17 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdarg.h>
-#include <fcntl.h>
 
+int main(){
 
+    int v[] = {-9,6,3,0,5};
+    int *p,n;
 
-int main(void) {
-    volatile x = 1;
-    printf(x);
-    return 0;
-
-
+    p = v + 2;
+    n = --*--p;
+    (p)++;
+    printf("%d ",*p);
+    printf("%d %d %d\n",n,*p,p[1]);
 }
-

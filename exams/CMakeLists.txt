@@ -3,4 +3,4 @@ project(exams C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(exams main.c test.c)
+add_executable(exams main.c)

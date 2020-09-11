@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
+RM = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/c_lab/exams
+CMAKE_SOURCE_DIR = /Users/netanel/Documents/cs/c_lab/exams
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/exams.dir/depend.make
@@ -59,43 +59,28 @@ include CMakeFiles/exams.dir/flags.make
 
 CMakeFiles/exams.dir/main.c.o: CMakeFiles/exams.dir/flags.make
 CMakeFiles/exams.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/exams.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/exams.dir/main.c.o   -c /Users/mbp/Documents/cs/c_lab/exams/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/exams.dir/main.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/exams.dir/main.c.o   -c /Users/netanel/Documents/cs/c_lab/exams/main.c
 
 CMakeFiles/exams.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/exams.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/exams/main.c > CMakeFiles/exams.dir/main.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/exams/main.c > CMakeFiles/exams.dir/main.c.i
 
 CMakeFiles/exams.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/exams.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/exams/main.c -o CMakeFiles/exams.dir/main.c.s
-
-CMakeFiles/exams.dir/test.c.o: CMakeFiles/exams.dir/flags.make
-CMakeFiles/exams.dir/test.c.o: ../test.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/exams.dir/test.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/exams.dir/test.c.o   -c /Users/mbp/Documents/cs/c_lab/exams/test.c
-
-CMakeFiles/exams.dir/test.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/exams.dir/test.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/exams/test.c > CMakeFiles/exams.dir/test.c.i
-
-CMakeFiles/exams.dir/test.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/exams.dir/test.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/exams/test.c -o CMakeFiles/exams.dir/test.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/exams/main.c -o CMakeFiles/exams.dir/main.c.s
 
 # Object files for target exams
 exams_OBJECTS = \
-"CMakeFiles/exams.dir/main.c.o" \
-"CMakeFiles/exams.dir/test.c.o"
+"CMakeFiles/exams.dir/main.c.o"
 
 # External object files for target exams
 exams_EXTERNAL_OBJECTS =
 
 exams: CMakeFiles/exams.dir/main.c.o
-exams: CMakeFiles/exams.dir/test.c.o
 exams: CMakeFiles/exams.dir/build.make
 exams: CMakeFiles/exams.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable exams"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable exams"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/exams.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -108,6 +93,6 @@ CMakeFiles/exams.dir/clean:
 .PHONY : CMakeFiles/exams.dir/clean
 
 CMakeFiles/exams.dir/depend:
-	cd /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/mbp/Documents/cs/c_lab/exams /Users/mbp/Documents/cs/c_lab/exams /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles/exams.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/netanel/Documents/cs/c_lab/exams /Users/netanel/Documents/cs/c_lab/exams /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug/CMakeFiles/exams.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/exams.dir/depend
 

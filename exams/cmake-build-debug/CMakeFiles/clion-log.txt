@@ -1,4 +1,4 @@
-"/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/mbp/Documents/cs/c_lab/exams
+"/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/netanel/Documents/cs/c_lab/exams
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/mbp/Documents/cs/c_lab/exams/cmake-build-debug
+-- Build files have been written to: /Users/netanel/Documents/cs/c_lab/exams/cmake-build-debug

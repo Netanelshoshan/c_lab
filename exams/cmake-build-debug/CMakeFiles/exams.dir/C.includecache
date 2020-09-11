@@ -6,13 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/mbp/Documents/cs/c_lab/exams/test.c
+/Users/netanel/Documents/cs/c_lab/exams/main.c
 stdio.h
--
-sys/mman.h
--
-string.h
--
-stdlib.h
 -
 
