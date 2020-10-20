@@ -59,19 +59,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
+RM = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/netanel/Documents/cs/c_lab/assembler
+CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/c_lab/assembler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,7 +79,7 @@ CMAKE_BINARY_DIR = /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -90,7 +90,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
+	"/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -100,9 +100,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -131,44 +131,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named assembler
+# Target rules for targets named assembler.c
 
 # Build rule for target.
-assembler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 assembler
-.PHONY : assembler
+assembler.c: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 assembler.c
+.PHONY : assembler.c
 
 # fast build rule for target.
-assembler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/build
-.PHONY : assembler/fast
-
-assembler.o: assembler.c.o
-
-.PHONY : assembler.o
-
-# target to build an object file
-assembler.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/assembler.c.o
-.PHONY : assembler.c.o
-
-assembler.i: assembler.c.i
-
-.PHONY : assembler.i
-
-# target to preprocess a source file
-assembler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/assembler.c.i
-.PHONY : assembler.c.i
-
-assembler.s: assembler.c.s
-
-.PHONY : assembler.s
-
-# target to generate assembly for a file
-assembler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/assembler.c.s
-.PHONY : assembler.c.s
+assembler.c/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/build
+.PHONY : assembler.c/fast
 
 firstStage.o: firstStage.c.o
 
@@ -176,7 +149,7 @@ firstStage.o: firstStage.c.o
 
 # target to build an object file
 firstStage.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/firstStage.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/firstStage.c.o
 .PHONY : firstStage.c.o
 
 firstStage.i: firstStage.c.i
@@ -185,7 +158,7 @@ firstStage.i: firstStage.c.i
 
 # target to preprocess a source file
 firstStage.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/firstStage.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/firstStage.c.i
 .PHONY : firstStage.c.i
 
 firstStage.s: firstStage.c.s
@@ -194,7 +167,7 @@ firstStage.s: firstStage.c.s
 
 # target to generate assembly for a file
 firstStage.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/firstStage.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/firstStage.c.s
 .PHONY : firstStage.c.s
 
 secondStage.o: secondStage.c.o
@@ -203,7 +176,7 @@ secondStage.o: secondStage.c.o
 
 # target to build an object file
 secondStage.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/secondStage.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/secondStage.c.o
 .PHONY : secondStage.c.o
 
 secondStage.i: secondStage.c.i
@@ -212,7 +185,7 @@ secondStage.i: secondStage.c.i
 
 # target to preprocess a source file
 secondStage.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/secondStage.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/secondStage.c.i
 .PHONY : secondStage.c.i
 
 secondStage.s: secondStage.c.s
@@ -221,7 +194,7 @@ secondStage.s: secondStage.c.s
 
 # target to generate assembly for a file
 secondStage.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/secondStage.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/secondStage.c.s
 .PHONY : secondStage.c.s
 
 tableMgmt.o: tableMgmt.c.o
@@ -230,7 +203,7 @@ tableMgmt.o: tableMgmt.c.o
 
 # target to build an object file
 tableMgmt.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/tableMgmt.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/tableMgmt.c.o
 .PHONY : tableMgmt.c.o
 
 tableMgmt.i: tableMgmt.c.i
@@ -239,7 +212,7 @@ tableMgmt.i: tableMgmt.c.i
 
 # target to preprocess a source file
 tableMgmt.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/tableMgmt.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/tableMgmt.c.i
 .PHONY : tableMgmt.c.i
 
 tableMgmt.s: tableMgmt.c.s
@@ -248,7 +221,7 @@ tableMgmt.s: tableMgmt.c.s
 
 # target to generate assembly for a file
 tableMgmt.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/tableMgmt.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/tableMgmt.c.s
 .PHONY : tableMgmt.c.s
 
 utils.o: utils.c.o
@@ -257,7 +230,7 @@ utils.o: utils.c.o
 
 # target to build an object file
 utils.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/utils.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/utils.c.o
 .PHONY : utils.c.o
 
 utils.i: utils.c.i
@@ -266,7 +239,7 @@ utils.i: utils.c.i
 
 # target to preprocess a source file
 utils.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/utils.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/utils.c.i
 .PHONY : utils.c.i
 
 utils.s: utils.c.s
@@ -275,7 +248,7 @@ utils.s: utils.c.s
 
 # target to generate assembly for a file
 utils.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/utils.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/utils.c.s
 .PHONY : utils.c.s
 
 # Help Target
@@ -286,10 +259,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... assembler"
-	@echo "... assembler.o"
-	@echo "... assembler.i"
-	@echo "... assembler.s"
+	@echo "... assembler.c"
 	@echo "... firstStage.o"
 	@echo "... firstStage.i"
 	@echo "... firstStage.s"

@@ -55,25 +55,25 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
+RM = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/netanel/Documents/cs/c_lab/assembler
+CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/c_lab/assembler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/assembler.dir/all
+all: CMakeFiles/assembler.c.dir/all
 
 .PHONY : all
 
@@ -83,36 +83,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/assembler.dir/clean
+clean: CMakeFiles/assembler.c.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/assembler.dir
+# Target rules for target CMakeFiles/assembler.c.dir
 
 # All Build rule for target.
-CMakeFiles/assembler.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target assembler"
-.PHONY : CMakeFiles/assembler.dir/all
+CMakeFiles/assembler.c.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target assembler.c"
+.PHONY : CMakeFiles/assembler.c.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/assembler.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/assembler.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/assembler.dir/rule
+CMakeFiles/assembler.c.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/assembler.c.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/assembler.c.dir/rule
 
 # Convenience name for target.
-assembler: CMakeFiles/assembler.dir/rule
+assembler.c: CMakeFiles/assembler.c.dir/rule
 
-.PHONY : assembler
+.PHONY : assembler.c
 
 # clean rule for target.
-CMakeFiles/assembler.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.dir/build.make CMakeFiles/assembler.dir/clean
-.PHONY : CMakeFiles/assembler.dir/clean
+CMakeFiles/assembler.c.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/assembler.c.dir/build.make CMakeFiles/assembler.c.dir/clean
+.PHONY : CMakeFiles/assembler.c.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

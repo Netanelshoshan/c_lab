@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/assembler.c.dir/firstStage.c.o CMakeFiles/assembler.c.dir/secondStage.c.o CMakeFiles/assembler.c.dir/tableMgmt.c.o CMakeFiles/assembler.c.dir/utils.c.o  -o assembler.c 

@@ -54,19 +54,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/netanel/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
+RM = "/Users/mbp/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/202.7660.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/netanel/Documents/cs/c_lab/assembler
+CMAKE_SOURCE_DIR = /Users/mbp/Documents/cs/c_lab/assembler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/assembler.dir/depend.make
@@ -79,68 +79,68 @@ include CMakeFiles/assembler.dir/flags.make
 
 CMakeFiles/assembler.dir/assembler.c.o: CMakeFiles/assembler.dir/flags.make
 CMakeFiles/assembler.dir/assembler.c.o: ../assembler.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/assembler.dir/assembler.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/assembler.c.o   -c /Users/netanel/Documents/cs/c_lab/assembler/assembler.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/assembler.dir/assembler.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/assembler.c.o   -c /Users/mbp/Documents/cs/c_lab/assembler/assembler.c
 
 CMakeFiles/assembler.dir/assembler.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assembler.dir/assembler.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/assembler/assembler.c > CMakeFiles/assembler.dir/assembler.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/assembler/assembler.c > CMakeFiles/assembler.dir/assembler.c.i
 
 CMakeFiles/assembler.dir/assembler.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assembler.dir/assembler.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/assembler/assembler.c -o CMakeFiles/assembler.dir/assembler.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/assembler/assembler.c -o CMakeFiles/assembler.dir/assembler.c.s
 
 CMakeFiles/assembler.dir/firstStage.c.o: CMakeFiles/assembler.dir/flags.make
 CMakeFiles/assembler.dir/firstStage.c.o: ../firstStage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/assembler.dir/firstStage.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/firstStage.c.o   -c /Users/netanel/Documents/cs/c_lab/assembler/firstStage.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/assembler.dir/firstStage.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/firstStage.c.o   -c /Users/mbp/Documents/cs/c_lab/assembler/firstStage.c
 
 CMakeFiles/assembler.dir/firstStage.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assembler.dir/firstStage.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/assembler/firstStage.c > CMakeFiles/assembler.dir/firstStage.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/assembler/firstStage.c > CMakeFiles/assembler.dir/firstStage.c.i
 
 CMakeFiles/assembler.dir/firstStage.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assembler.dir/firstStage.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/assembler/firstStage.c -o CMakeFiles/assembler.dir/firstStage.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/assembler/firstStage.c -o CMakeFiles/assembler.dir/firstStage.c.s
 
 CMakeFiles/assembler.dir/secondStage.c.o: CMakeFiles/assembler.dir/flags.make
 CMakeFiles/assembler.dir/secondStage.c.o: ../secondStage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/assembler.dir/secondStage.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/secondStage.c.o   -c /Users/netanel/Documents/cs/c_lab/assembler/secondStage.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/assembler.dir/secondStage.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/secondStage.c.o   -c /Users/mbp/Documents/cs/c_lab/assembler/secondStage.c
 
 CMakeFiles/assembler.dir/secondStage.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assembler.dir/secondStage.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/assembler/secondStage.c > CMakeFiles/assembler.dir/secondStage.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/assembler/secondStage.c > CMakeFiles/assembler.dir/secondStage.c.i
 
 CMakeFiles/assembler.dir/secondStage.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assembler.dir/secondStage.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/assembler/secondStage.c -o CMakeFiles/assembler.dir/secondStage.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/assembler/secondStage.c -o CMakeFiles/assembler.dir/secondStage.c.s
 
 CMakeFiles/assembler.dir/tableMgmt.c.o: CMakeFiles/assembler.dir/flags.make
 CMakeFiles/assembler.dir/tableMgmt.c.o: ../tableMgmt.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/assembler.dir/tableMgmt.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/tableMgmt.c.o   -c /Users/netanel/Documents/cs/c_lab/assembler/tableMgmt.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/assembler.dir/tableMgmt.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/tableMgmt.c.o   -c /Users/mbp/Documents/cs/c_lab/assembler/tableMgmt.c
 
 CMakeFiles/assembler.dir/tableMgmt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assembler.dir/tableMgmt.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/assembler/tableMgmt.c > CMakeFiles/assembler.dir/tableMgmt.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/assembler/tableMgmt.c > CMakeFiles/assembler.dir/tableMgmt.c.i
 
 CMakeFiles/assembler.dir/tableMgmt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assembler.dir/tableMgmt.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/assembler/tableMgmt.c -o CMakeFiles/assembler.dir/tableMgmt.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/assembler/tableMgmt.c -o CMakeFiles/assembler.dir/tableMgmt.c.s
 
 CMakeFiles/assembler.dir/utils.c.o: CMakeFiles/assembler.dir/flags.make
 CMakeFiles/assembler.dir/utils.c.o: ../utils.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/assembler.dir/utils.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/utils.c.o   -c /Users/netanel/Documents/cs/c_lab/assembler/utils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/assembler.dir/utils.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assembler.dir/utils.c.o   -c /Users/mbp/Documents/cs/c_lab/assembler/utils.c
 
 CMakeFiles/assembler.dir/utils.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assembler.dir/utils.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/netanel/Documents/cs/c_lab/assembler/utils.c > CMakeFiles/assembler.dir/utils.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbp/Documents/cs/c_lab/assembler/utils.c > CMakeFiles/assembler.dir/utils.c.i
 
 CMakeFiles/assembler.dir/utils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assembler.dir/utils.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/netanel/Documents/cs/c_lab/assembler/utils.c -o CMakeFiles/assembler.dir/utils.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbp/Documents/cs/c_lab/assembler/utils.c -o CMakeFiles/assembler.dir/utils.c.s
 
 # Object files for target assembler
 assembler_OBJECTS = \
@@ -160,7 +160,7 @@ assembler: CMakeFiles/assembler.dir/tableMgmt.c.o
 assembler: CMakeFiles/assembler.dir/utils.c.o
 assembler: CMakeFiles/assembler.dir/build.make
 assembler: CMakeFiles/assembler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable assembler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable assembler"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/assembler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -173,6 +173,6 @@ CMakeFiles/assembler.dir/clean:
 .PHONY : CMakeFiles/assembler.dir/clean
 
 CMakeFiles/assembler.dir/depend:
-	cd /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/netanel/Documents/cs/c_lab/assembler /Users/netanel/Documents/cs/c_lab/assembler /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug /Users/netanel/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles/assembler.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/mbp/Documents/cs/c_lab/assembler /Users/mbp/Documents/cs/c_lab/assembler /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug /Users/mbp/Documents/cs/c_lab/assembler/cmake-build-debug/CMakeFiles/assembler.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/assembler.dir/depend
 
